@@ -1,0 +1,2224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Yashu's Learning Journey 🌸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+/* ── LIGHT MODE (default) ── */
+:root{
+  --bg:#fef6ff;--surface:#fff;--surface2:#fdf0ff;--surface3:#f5e6ff;
+  --border:rgba(200,140,220,.18);--border2:rgba(200,140,220,.38);
+  --text:#2d1b69;--muted:#7c6fa0;--faint:#c0aed8;
+  --accent:#e879a0;--accent2:#a78bfa;
+  --p0:#f43f5e;--p0s:#fff0f3;
+  --p1:#10b981;--p1s:#f0fdf9;
+  --p2:#8b5cf6;--p2s:#faf5ff;
+  --p3:#3b82f6;--p3s:#eff6ff;
+  --p4:#f59e0b;--p4s:#fffbeb;
+  --success:#10b981;--warn:#f59e0b;--danger:#ef4444;
+  --radius:16px;
+  --sh:0 2px 16px rgba(168,85,247,.07);
+  --sh2:0 4px 28px rgba(168,85,247,.13);
+  --sh3:0 8px 40px rgba(168,85,247,.18);
+}
+/* ── DARK MODE ── */
+body.dark{
+  --bg:#0f0f1e;--surface:#1a1a2e;--surface2:#242440;--surface3:#2e2e50;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --text:#dde3ff;--muted:#7b87b8;--faint:#4a5280;
+  --accent:#818cf8;--accent2:#a78bfa;
+  --p0:#ef4444;--p0s:rgba(239,68,68,.1);
+  --p1:#10b981;--p1s:rgba(16,185,129,.1);
+  --p2:#8b5cf6;--p2s:rgba(139,92,246,.1);
+  --p3:#3b82f6;--p3s:rgba(59,130,246,.1);
+  --p4:#f59e0b;--p4s:rgba(245,158,11,.1);
+  --sh:0 2px 16px rgba(0,0,0,.35);
+  --sh2:0 4px 28px rgba(0,0,0,.45);
+  --sh3:0 8px 40px rgba(0,0,0,.55);
+}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;transition:background .3s,color .3s}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;border:none;font-family:inherit}
+
+/* ── LOGIN ── */
+#login-screen{position:fixed;inset:0;z-index:1000;background:linear-gradient(135deg,#fdf4ff,#fce7f3 50%,#ede9fe);display:flex;align-items:center;justify-content:center;padding:20px}
+body.dark #login-screen{background:linear-gradient(135deg,#0f0f1e,#1a0f3e 40%,#0f1e2e)}
+.login-card{background:#fff;border-radius:28px;padding:48px 40px;width:100%;max-width:420px;text-align:center;box-shadow:0 20px 60px rgba(232,121,160,.2);border:1.5px solid rgba(232,121,160,.2)}
+body.dark .login-card{background:rgba(26,26,46,.97);box-shadow:0 20px 60px rgba(99,102,241,.15);border-color:rgba(99,102,241,.3)}
+.login-logo{font-size:3.5rem;margin-bottom:12px;display:block;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.login-title{font-size:1.65rem;font-weight:900;color:var(--text);margin-bottom:6px}
+.login-sub{font-size:.88rem;color:var(--muted);margin-bottom:28px;line-height:1.6}
+.login-wrap{position:relative;margin-bottom:10px}
+.login-input{width:100%;padding:13px 46px 13px 16px;background:var(--surface2);border:2px solid var(--border);border-radius:12px;color:var(--text);font-size:1rem;font-family:inherit;outline:none;transition:border-color .2s}
+.login-input:focus{border-color:var(--accent)}
+.login-input::placeholder{color:var(--faint)}
+.pw-eye{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;color:var(--muted);font-size:1.1rem;padding:4px}
+.login-err{color:#f43f5e;font-size:.82rem;min-height:20px;margin-bottom:6px}
+.login-btn{width:100%;padding:14px;background:linear-gradient(135deg,#e879a0,#a78bfa);color:#fff;font-size:1rem;font-weight:800;border-radius:12px;transition:opacity .2s,transform .1s;margin-bottom:10px;box-shadow:0 4px 20px rgba(232,121,160,.35)}
+.login-btn:hover{opacity:.92;transform:translateY(-1px)}
+.login-foot{font-size:.75rem;color:var(--faint);margin-top:20px}
+
+/* ── APP ── */
+#app{display:none}
+
+/* ── TOPBAR ── */
+.topbar{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.93);backdrop-filter:blur(16px);border-bottom:1.5px solid var(--border);padding:10px 20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+body.dark .topbar{background:rgba(15,15,30,.96)}
+.topbar-brand{font-weight:900;font-size:1rem;color:var(--accent);white-space:nowrap;margin-right:4px}
+.topbar-tabs{display:flex;gap:4px;flex:1;flex-wrap:wrap}
+.topbar-tab{font-size:.74rem;font-weight:700;padding:5px 12px;border-radius:20px;border:1.5px solid transparent;transition:all .2s;color:var(--muted);background:transparent}
+.topbar-tab:hover,.topbar-tab.active{background:var(--surface2);border-color:rgba(232,121,160,.3);color:var(--accent)}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.topbar-prog{display:flex;align-items:center;gap:6px;font-size:.77rem;color:var(--muted)}
+.tbar{width:80px;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.tbar-fill{height:100%;width:0%;background:linear-gradient(90deg,#e879a0,#a78bfa,#34d399);border-radius:3px;transition:width .5s}
+.tbar-pct{font-weight:900;color:var(--accent);min-width:30px}
+.theme-btn{background:var(--surface2);border:1.5px solid var(--border);color:var(--muted);font-size:1rem;padding:6px 10px;border-radius:10px;transition:all .2s}
+.theme-btn:hover{border-color:var(--accent);color:var(--accent)}
+.lock-btn{background:none;color:var(--faint);font-size:1rem;padding:6px;border-radius:8px;transition:all .2s}
+.lock-btn:hover{color:var(--danger);background:rgba(239,68,68,.1)}
+
+/* ── MAIN TABS ── */
+.main-tabs{display:flex;background:var(--surface);border-bottom:2px solid var(--border);padding:0 24px}
+.main-tab-btn{padding:13px 20px;font-size:.87rem;font-weight:700;color:var(--muted);border-bottom:3px solid transparent;background:none;transition:all .2s;margin-bottom:-2px}
+.main-tab-btn:hover{color:var(--text)}
+.main-tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-view{display:none}.tab-view.active{display:block}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#fdf4ff,#fce7f3 45%,#ede9fe);padding:52px 24px 44px;text-align:center;position:relative;overflow:hidden}
+body.dark .hero{background:linear-gradient(135deg,#1a1a2e,#2d1b69 40%,#1a2e4a)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 50%,rgba(232,121,160,.14) 0%,transparent 50%),radial-gradient(circle at 80% 30%,rgba(167,139,250,.14) 0%,transparent 50%)}
+.hero-in{position:relative;z-index:1}
+.hero-badge{display:inline-block;background:rgba(232,121,160,.12);border:1.5px solid rgba(232,121,160,.3);padding:5px 16px;border-radius:20px;font-size:.77rem;font-weight:700;color:var(--accent);margin-bottom:18px}
+.hero h1{font-size:clamp(1.9rem,5vw,3rem);font-weight:900;line-height:1.15;background:linear-gradient(90deg,#e879a0,#a78bfa 50%,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
+body.dark .hero h1{background:linear-gradient(90deg,#f9a8d4,#c4b5fd 50%,#6ee7b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:.93rem;color:var(--muted);max-width:540px;margin:0 auto 22px}
+.hero-stats{display:flex;gap:11px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.hero-stat{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:11px 17px;text-align:center;min-width:88px;box-shadow:var(--sh)}
+body.dark .hero-stat{background:rgba(255,255,255,.05)}
+.hero-stat-val{font-size:1.55rem;font-weight:900;color:var(--accent)}
+.hero-stat-label{font-size:.69rem;color:var(--muted);margin-top:1px}
+.countdown{display:inline-block;background:rgba(245,158,11,.1);border:1.5px solid rgba(245,158,11,.3);border-radius:12px;padding:9px 22px;font-size:.88rem;font-weight:700;color:#b45309}
+body.dark .countdown{color:#fcd34d}
+
+/* ── OVERALL PROGRESS ── */
+.prog-section{max-width:960px;margin:28px auto 0;padding:0 20px}
+.prog-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:24px 28px;box-shadow:var(--sh)}
+.prog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.prog-head h2{font-size:.95rem;font-weight:800}
+.reset-btn{background:none;border:1.5px solid rgba(239,68,68,.2);color:var(--danger);font-size:.72rem;padding:4px 12px;border-radius:8px;transition:all .2s;font-weight:700}
+.reset-btn:hover{background:rgba(239,68,68,.08)}
+.big-bar{height:14px;background:var(--surface2);border-radius:8px;overflow:hidden;margin-bottom:7px;position:relative}
+.big-bar-fill{height:100%;width:0%;border-radius:8px;background:linear-gradient(90deg,#e879a0,#a78bfa,#34d399,#f59e0b);transition:width .7s ease}
+.big-bar-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);animation:shim 2.5s infinite}
+@keyframes shim{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
+.big-bar-meta{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px}
+#overall-count{font-size:.82rem;color:var(--muted)}
+#overall-pct{font-size:1.5rem;font-weight:900;color:var(--accent)}
+.phase-mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px}
+.phase-mini{background:var(--surface2);border-radius:11px;padding:10px 13px;border:1.5px solid var(--border)}
+.phase-mini-label{font-size:.73rem;font-weight:800;display:flex;justify-content:space-between;margin-bottom:5px}
+.mini-bar{height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.mini-bar-fill{height:100%;width:0%;border-radius:3px;transition:width .5s}
+.ph0-fill{background:var(--p0)}.ph1-fill{background:var(--p1)}.ph2-fill{background:var(--p2)}.ph3-fill{background:var(--p3)}.ph4-fill{background:var(--p4)}
+
+/* ── DASHBOARD ── */
+.dash-wrap{max-width:960px;margin:20px auto 0;padding:0 20px}
+.dash-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px 24px;box-shadow:var(--sh)}
+.dash-status-row{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.status-pill{padding:6px 16px;border-radius:20px;font-size:.81rem;font-weight:800;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.sp-track{background:rgba(16,185,129,.1);color:#047857;border:1.5px solid rgba(16,185,129,.28)}
+.sp-behind{background:rgba(239,68,68,.09);color:#b91c1c;border:1.5px solid rgba(239,68,68,.22)}
+.sp-ahead{background:rgba(99,102,241,.1);color:#4338ca;border:1.5px solid rgba(99,102,241,.25)}
+body.dark .sp-track{color:#6ee7b7}.body.dark .sp-behind{color:#fca5a5}.body.dark .sp-ahead{color:#a5b4fc}
+.dash-status-msg{font-size:.82rem;color:var(--muted);flex:1}
+.dash-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:580px){.dash-cols{grid-template-columns:1fr}}
+.dash-col-lbl{font-size:.68rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:9px}
+.dash-mini{background:var(--surface2);border-radius:12px;padding:12px 14px;border:1.5px solid var(--border)}
+.dash-mini-title{font-size:.84rem;font-weight:800;color:var(--text);margin-bottom:3px}
+.dash-mini-sub{font-size:.72rem;color:var(--muted);margin-bottom:9px}
+.dash-empty{font-size:.82rem;color:var(--faint);font-style:italic}
+.dash-mini-actions{display:flex;gap:6px;flex-wrap:wrap}
+
+/* ── CONTAINER ── */
+.container{max-width:960px;margin:0 auto;padding:24px 20px 80px}
+.section-lbl{font-size:.71rem;font-weight:800;color:var(--faint);text-transform:uppercase;letter-spacing:1.5px;padding:28px 0 10px}
+
+/* ── PHASE SECTION ── */
+.phase-section{margin-bottom:32px;border-radius:20px;overflow:hidden;box-shadow:var(--sh2)}
+.phase-hd{display:flex;align-items:center;gap:12px;padding:18px 22px;cursor:pointer;user-select:none;position:relative}
+.phase-hd-toggle{margin-left:auto;font-size:.9rem;color:rgba(255,255,255,.6);transition:transform .3s}
+.phase-section.collapsed .phase-hd-toggle{transform:rotate(-90deg)}
+.phase-icon{font-size:1.7rem}
+.phase-hd-text .phase-title{font-size:1.08rem;font-weight:900;color:#fff}
+.phase-hd-text .phase-dates{font-size:.74rem;color:rgba(255,255,255,.7);margin-top:1px}
+.phase-badge{padding:3px 11px;border-radius:20px;font-size:.67rem;font-weight:800;background:rgba(255,255,255,.2);color:#fff}
+.phase-bar-wrap{text-align:right;min-width:78px}
+.phase-bar{height:5px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden;margin-bottom:3px}
+.phase-bar-fill{height:100%;width:0%;border-radius:3px;transition:width .5s;background:rgba(255,255,255,.85)}
+.phase-bar-lbl{font-size:.65rem;color:rgba(255,255,255,.75)}
+.phase-body{background:var(--surface);border:1.5px solid var(--border);border-top:none;border-radius:0 0 20px 20px;overflow:hidden;transition:max-height .4s ease,opacity .3s;max-height:9999px;opacity:1}
+.phase-section.collapsed .phase-body{max-height:0;opacity:0}
+.ph0{background:linear-gradient(135deg,#f43f5e,#fb7185)}.ph1{background:linear-gradient(135deg,#059669,#10b981)}.ph2{background:linear-gradient(135deg,#7c3aed,#8b5cf6)}.ph3{background:linear-gradient(135deg,#1d4ed8,#3b82f6)}.ph4{background:linear-gradient(135deg,#b45309,#f59e0b)}
+
+/* ── STEP ── */
+.step{padding:24px 26px 28px;border-bottom:1.5px solid var(--border);margin:0}
+.step:last-child{border-bottom:none}
+.step-hd{display:flex;align-items:flex-start;gap:9px;margin-bottom:6px;flex-wrap:wrap}
+.step-num{font-size:.69rem;font-weight:800;padding:3px 10px;border-radius:20px;background:var(--surface2);color:var(--muted);white-space:nowrap;margin-top:3px;border:1px solid var(--border)}
+.step-title{font-size:1.02rem;font-weight:800;color:var(--text);flex:1;line-height:1.4}
+.step-chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 14px;width:100%}
+.chip{font-size:.67rem;font-weight:700;padding:3px 10px;border-radius:10px;background:var(--surface2);color:var(--muted)}
+.chip-must{background:rgba(244,63,94,.1);color:#be123c}.chip-high{background:rgba(245,158,11,.1);color:#b45309}.chip-opt{background:rgba(139,92,246,.1);color:#6d28d9}
+body.dark .chip-must{background:rgba(239,68,68,.15);color:#fca5a5}
+body.dark .chip-high{background:rgba(245,158,11,.15);color:#fcd34d}
+body.dark .chip-opt{background:rgba(139,92,246,.15);color:#c4b5fd}
+.step-inst{background:rgba(232,121,160,.06);border-left:3px solid rgba(232,121,160,.4);border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:14px;font-size:.84rem;color:var(--muted);line-height:1.75}
+body.dark .step-inst{background:rgba(99,102,241,.06);border-left-color:rgba(99,102,241,.4)}
+.step-inst strong{color:var(--text)}.step-inst ul{margin:8px 0 0 16px}.step-inst li{margin-bottom:4px}
+.step-inst .arrow{color:var(--accent);font-weight:800}
+.tip-inline{background:rgba(245,158,11,.07);border:1.5px solid rgba(245,158,11,.2);border-radius:10px;padding:11px 14px;margin:12px 0;font-size:.82rem;color:#92400e;line-height:1.6}
+body.dark .tip-inline{color:#fde68a}
+.tip-inline::before{content:'💡 '}
+.enrichment{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1.5px dashed var(--border2);border-radius:10px;padding:10px 14px;margin:9px 0;font-size:.81rem}
+.enrichment a{color:var(--accent);font-weight:700}.enrichment a:hover{text-decoration:underline}
+.mini-project{background:rgba(245,158,11,.05);border:1.5px solid rgba(245,158,11,.22);border-radius:12px;padding:14px 16px;margin-top:14px}
+.mini-project-hd{font-size:.79rem;font-weight:800;color:#b45309;margin-bottom:8px}
+body.dark .mini-project-hd{color:#fcd34d}
+.mini-project p,.mini-project li{font-size:.79rem;color:#92400e;line-height:1.6}
+body.dark .mini-project p,body.dark .mini-project li{color:#fde68a}
+.mini-project ul{margin:8px 0 0 16px}.mini-project li{margin-bottom:4px}
+.topic-hd{font-size:.77rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:18px 22px 0;display:flex;align-items:center;gap:8px}
+.topic-hd::after{content:'';flex:1;height:1.5px;background:var(--border)}
+
+/* ── RESOURCE CARD ── */
+.res-grid{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.resource-card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:16px 18px;transition:box-shadow .2s,transform .15s;box-shadow:var(--sh);position:relative}
+.resource-card:hover{box-shadow:var(--sh2);transform:translateY(-1px)}
+.resource-card.priority-must{border-left:4px solid var(--p0)}
+.resource-card.priority-high{border-left:4px solid var(--p4)}
+.resource-card.priority-opt{border-left:4px solid var(--faint)}
+/* States */
+.resource-card.state-ip{border-color:rgba(167,139,250,.5);background:linear-gradient(135deg,var(--surface),rgba(167,139,250,.04));box-shadow:0 0 0 2px rgba(167,139,250,.18),var(--sh)}
+.resource-card.state-done{opacity:.52;background:var(--surface2)}
+.resource-card.state-done .res-title{text-decoration:line-through;color:var(--muted)!important}
+/* Optional reference (books) */
+.resource-card.ref-only{opacity:.7;border-style:dashed;border-left-width:4px}
+.resource-card.ref-only .res-actions .btn-start,.resource-card.ref-only .res-actions .btn-finish,.resource-card.ref-only .res-actions .btn-undo{display:none!important}
+.ref-tag{display:inline-block;font-size:.6rem;font-weight:800;padding:2px 8px;border-radius:8px;background:rgba(200,140,220,.12);color:var(--muted);margin-left:6px;vertical-align:middle;letter-spacing:.3px}
+.resource-card.state-done.hide-done{display:none}
+
+.res-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.res-pill{font-size:.63rem;font-weight:800;padding:2px 8px;border-radius:10px;display:inline-flex;align-items:center;gap:3px}
+.pill-ns{background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+.pill-ip{background:rgba(167,139,250,.14);color:#7c3aed;border:1px solid rgba(167,139,250,.3)}
+.pill-done{background:rgba(16,185,129,.11);color:#047857;border:1px solid rgba(16,185,129,.25)}
+body.dark .pill-ip{color:#c4b5fd}.body.dark .pill-done{color:#6ee7b7}
+.badges{display:flex;gap:4px;flex-wrap:wrap}
+.badge{font-size:.62rem;padding:2px 7px;border-radius:8px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap}
+.badge-course{background:rgba(139,92,246,.1);color:#6d28d9}.badge-video{background:rgba(239,68,68,.1);color:#b91c1c}.badge-article{background:rgba(245,158,11,.1);color:#b45309}.badge-book{background:rgba(251,146,60,.1);color:#c2410c}.badge-tool{background:rgba(20,184,166,.1);color:#0f766e}.badge-interactive{background:rgba(16,185,129,.1);color:#047857}.badge-game{background:rgba(236,72,153,.1);color:#be185d}.badge-free{background:rgba(16,185,129,.1);color:#047857}.badge-paid{background:rgba(251,146,60,.1);color:#c2410c}
+body.dark .badge-course{background:rgba(139,92,246,.2);color:#a5b4fc}body.dark .badge-video{background:rgba(239,68,68,.2);color:#fca5a5}body.dark .badge-article{background:rgba(245,158,11,.2);color:#fcd34d}body.dark .badge-book{background:rgba(251,146,60,.2);color:#fdba74}body.dark .badge-tool{background:rgba(20,184,166,.2);color:#5eead4}body.dark .badge-interactive{background:rgba(16,185,129,.2);color:#6ee7b7}body.dark .badge-free{background:rgba(16,185,129,.15);color:#86efac}body.dark .badge-paid{background:rgba(251,146,60,.15);color:#fdba74}
+.res-title{font-weight:800;font-size:.9rem;color:var(--text);display:block;margin-bottom:8px;transition:color .2s}
+a.res-title:hover{color:var(--accent)}
+.res-desc{font-size:.79rem;color:var(--muted);margin-bottom:12px;line-height:1.6}
+.res-foot{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.res-time{font-size:.72rem;color:var(--faint)}.res-time::before{content:'⏱ '}
+.res-stars{font-size:.72rem;color:#f59e0b}
+.res-actions{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.btn-open{background:var(--surface2);border:1.5px solid var(--border);color:var(--muted);font-size:.74rem;font-weight:700;padding:5px 12px;border-radius:9px;transition:all .2s;white-space:nowrap;display:inline-block}
+.btn-open:hover{border-color:var(--accent);color:var(--accent)}
+.btn-start{background:linear-gradient(135deg,#a78bfa,#8b5cf6);color:#fff;font-size:.74rem;font-weight:800;padding:5px 12px;border-radius:9px;transition:all .2s;white-space:nowrap;box-shadow:0 2px 10px rgba(139,92,246,.25)}
+.btn-start:hover{opacity:.9;transform:translateY(-1px)}
+.btn-finish{background:linear-gradient(135deg,#34d399,#10b981);color:#fff;font-size:.74rem;font-weight:800;padding:5px 12px;border-radius:9px;transition:all .2s;white-space:nowrap;box-shadow:0 2px 10px rgba(16,185,129,.25);display:none}
+.btn-finish:hover{opacity:.9;transform:translateY(-1px)}
+.btn-undo{background:none;border:1.5px solid var(--border);color:var(--faint);font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:9px;transition:all .2s;display:none}
+.btn-undo:hover{border-color:var(--danger);color:var(--danger)}
+/* Button visibility per state */
+.resource-card.state-ns .btn-start{display:inline-block}
+.resource-card.state-ns .btn-finish,.resource-card.state-ns .btn-undo{display:none}
+.resource-card.state-ip .btn-start{display:none}
+.resource-card.state-ip .btn-finish{display:inline-block}
+.resource-card.state-ip .btn-undo{display:inline-block}
+.resource-card.state-done .btn-start,.resource-card.state-done .btn-finish{display:none}
+.resource-card.state-done .btn-undo{display:inline-block}
+.res-date{font-size:.69rem;color:var(--accent2);font-style:italic;margin-top:6px}
+
+/* ── DONE TOGGLE ── */
+.done-toggle{text-align:center;padding:14px 12px;font-size:.77rem;font-weight:700;color:var(--muted);cursor:pointer;border-top:1.5px dashed var(--border);transition:color .2s;user-select:none;margin-top:8px}
+.done-toggle:hover{color:var(--accent)}
+
+/* ── PLAYGROUND ── */
+.pg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;padding:18px 22px 36px}
+.pg-card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:transform .2s,box-shadow .2s;box-shadow:var(--sh)}
+.pg-card:hover{transform:translateY(-3px);box-shadow:var(--sh2)}
+.pg-icon{font-size:1.9rem;margin-bottom:9px}
+.pg-title{font-weight:800;color:var(--text);margin-bottom:5px;font-size:.88rem}
+.pg-desc{font-size:.76rem;color:var(--muted);margin-bottom:12px;line-height:1.5}
+.pg-link{display:inline-block;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:.74rem;font-weight:800;padding:6px 16px;border-radius:20px;box-shadow:0 2px 10px rgba(232,121,160,.3)}
+
+/* ── RHYTHM ── */
+.rhythm-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;padding:14px 22px 28px}
+.rhythm-day{background:var(--surface2);border-radius:10px;padding:10px 6px;text-align:center;font-size:.7rem;border:1px solid var(--border)}
+.rhythm-day-name{font-weight:800;color:var(--muted);margin-bottom:4px;font-size:.62rem;text-transform:uppercase}
+.rhythm-task{color:var(--text);line-height:1.4}
+@media(max-width:600px){.rhythm-grid{grid-template-columns:repeat(4,1fr)}}
+
+/* ── JARGON ── */
+.jargon-header{padding:26px 24px 13px}
+.jargon-header h2{font-size:1.25rem;font-weight:900;margin-bottom:5px}
+.jargon-header p{font-size:.84rem;color:var(--muted)}
+.jargon-search-wrap{padding:0 24px 13px;border-bottom:1px solid var(--border)}
+.jargon-search{width:100%;max-width:400px;padding:9px 16px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-size:.88rem;outline:none;transition:border-color .2s;font-family:inherit}
+.jargon-search:focus{border-color:var(--accent)}
+.jargon-cats{display:flex;gap:7px;padding:13px 24px 0;flex-wrap:wrap}
+.jargon-cat-btn{padding:6px 14px;border-radius:20px;font-size:.76rem;font-weight:700;background:var(--surface2);border:1.5px solid var(--border);color:var(--muted);transition:all .2s;font-family:inherit}
+.jargon-cat-btn.active,.jargon-cat-btn:hover{background:rgba(232,121,160,.1);border-color:rgba(232,121,160,.3);color:var(--accent)}
+.jargon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:10px;padding:17px 24px 40px}
+.jargon-card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:13px 15px;transition:box-shadow .2s;box-shadow:var(--sh)}
+.jargon-card:hover{box-shadow:var(--sh2)}
+.jargon-term{font-size:.87rem;font-weight:800;color:var(--text);margin-bottom:4px}
+.jargon-def{font-size:.78rem;color:var(--muted);line-height:1.55}
+.jargon-cat-tag{display:inline-block;font-size:.59rem;font-weight:800;padding:1px 7px;border-radius:8px;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.cat-ai{background:rgba(139,92,246,.12);color:#6d28d9}.cat-tech{background:rgba(59,130,246,.12);color:#1d4ed8}.cat-biz{background:rgba(16,185,129,.12);color:#047857}
+body.dark .cat-ai{color:#c4b5fd}body.dark .cat-tech{color:#93c5fd}body.dark .cat-biz{color:#6ee7b7}
+
+/* ── TIPS ── */
+.tips-header{padding:26px 24px 13px}
+.tips-header h2{font-size:1.25rem;font-weight:900;margin-bottom:4px}
+.tips-header p{font-size:.84rem;color:var(--muted)}
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:14px;padding:13px 24px 40px}
+.tip-card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:20px;box-shadow:var(--sh)}
+.tip-icon{font-size:1.55rem;margin-bottom:8px}
+.tip-num{font-size:.67rem;font-weight:800;color:var(--faint);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.tip-title{font-size:.93rem;font-weight:900;color:var(--text);margin-bottom:7px}
+.tip-text{font-size:.82rem;color:var(--muted);line-height:1.65}
+
+/* ── MINOR CELEBRATION (float-up emoji) ── */
+@keyframes float-up{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-70px) scale(1.3);opacity:0}}
+.float-em{position:fixed;pointer-events:none;z-index:9998;font-size:1.8rem;animation:float-up 1.1s ease-out forwards}
+@keyframes pop-in{0%{transform:scale(.5);opacity:0}65%{transform:scale(1.18)}100%{transform:scale(1);opacity:1}}
+
+/* ── PHASE CELEBRATION ── */
+#celebration{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:999;opacity:0;pointer-events:none;transition:opacity .3s;padding:20px}
+#celebration.show{opacity:1;pointer-events:all}
+.cel-card{background:var(--surface);border:2px solid rgba(232,121,160,.3);border-radius:24px;padding:42px 38px;text-align:center;max-width:390px;width:100%;box-shadow:var(--sh3);animation:pop-in .4s ease-out}
+.cel-emoji{font-size:3.3rem;display:block;margin-bottom:13px}
+.cel-title{font-size:1.6rem;font-weight:900;color:var(--text);margin-bottom:7px}
+.cel-msg{font-size:.88rem;color:var(--muted);margin-bottom:22px;line-height:1.6}
+.cel-btn{background:linear-gradient(135deg,#e879a0,#a78bfa);color:#fff;font-size:.93rem;font-weight:800;padding:11px 26px;border-radius:12px;box-shadow:0 4px 20px rgba(232,121,160,.3);transition:transform .2s}
+.cel-btn:hover{transform:scale(1.04)}
+
+/* ── ULTIMATE CELEBRATION ── */
+#ultimate{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#fdf4ff,#fce7f3 40%,#ede9fe);display:none;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:40px;overflow:hidden}
+body.dark #ultimate{background:linear-gradient(135deg,#0f0f1e,#1a0f3e 40%,#0f1e2e)}
+#ultimate.show{display:flex}
+.ult-glow{position:absolute;inset:0;background:radial-gradient(circle at 20% 30%,rgba(232,121,160,.28) 0%,transparent 45%),radial-gradient(circle at 80% 70%,rgba(167,139,250,.28) 0%,transparent 45%),radial-gradient(circle at 50% 50%,rgba(52,211,153,.18) 0%,transparent 55%);animation:ult-pulse 2s ease-in-out infinite alternate;pointer-events:none}
+@keyframes ult-pulse{0%{opacity:.6}100%{opacity:1}}
+.ult-inner{position:relative;z-index:1;max-width:500px}
+.ult-emojis{font-size:3.2rem;letter-spacing:8px;margin-bottom:15px;animation:ult-bounce .9s ease infinite alternate}
+@keyframes ult-bounce{0%{transform:scale(1)}100%{transform:scale(1.12)}}
+.ult-title{font-size:clamp(2rem,5.5vw,3.3rem);font-weight:900;margin-bottom:11px;background:linear-gradient(90deg,#e879a0,#a78bfa,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ult-sub{font-size:.97rem;color:var(--muted);line-height:1.7;margin-bottom:24px}
+.ult-note{background:rgba(232,121,160,.08);border:1.5px solid rgba(232,121,160,.2);border-radius:16px;padding:18px 22px;margin-bottom:24px;text-align:left}
+.ult-note p{font-size:.86rem;color:var(--muted);line-height:1.7}
+.ult-note .sig{font-weight:800;color:var(--accent);margin-top:9px}
+.ult-btn{background:linear-gradient(135deg,#e879a0,#a78bfa,#34d399);color:#fff;font-size:.97rem;font-weight:900;padding:13px 30px;border-radius:14px;box-shadow:0 6px 28px rgba(232,121,160,.4);transition:transform .2s}
+.ult-btn:hover{transform:scale(1.04)}
+
+/* ── CONFETTI ── */
+#confetti-layer{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9997;overflow:hidden}
+.confetto{position:absolute;top:-10px;animation:cfall linear forwards}
+@keyframes cfall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+footer{text-align:center;padding:20px;font-size:.75rem;color:var(--faint);border-top:1px solid var(--border)}
+
+/* ── RHYTHM BOX ── */
+.rhythm-box{background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:24px 28px;margin:24px 0 8px}
+.rhythm-title{font-size:1rem;font-weight:800;color:var(--text);margin-bottom:14px}
+.rhythm-grid{display:flex;flex-direction:column;gap:8px}
+.rhythm-row{display:flex;gap:14px;align-items:baseline}
+.rhythm-day{font-weight:800;color:var(--accent);min-width:90px;font-size:.87rem}
+.rhythm-task{font-size:.87rem;color:var(--muted)}
+
+/* ── PLAYGROUND ── */
+.playground-box{background:linear-gradient(135deg,var(--surface2),var(--surface));border:1.5px solid var(--border);border-radius:20px;padding:28px 30px;margin:32px 0 12px}
+.playground-title{font-size:1.15rem;font-weight:900;color:var(--text);margin-bottom:5px}
+.playground-sub{font-size:.85rem;color:var(--muted);margin-bottom:20px}
+.playground-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.play-card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:16px;text-decoration:none;color:var(--text);transition:transform .2s,box-shadow .2s;display:block}
+.play-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(168,139,250,.18)}
+.play-icon{font-size:1.5rem;display:block;margin-bottom:7px}
+.play-name{font-weight:800;font-size:.92rem;margin-bottom:5px;color:var(--text)}
+.play-desc{font-size:.78rem;color:var(--muted);line-height:1.5}
+
+/* ── JARGON ── */
+.jargon-header{text-align:center;margin-bottom:24px}
+.jargon-title{font-size:1.6rem;font-weight:900;color:var(--text);margin-bottom:6px}
+.jargon-sub{font-size:.9rem;color:var(--muted);margin-bottom:18px}
+.jargon-controls{display:flex;flex-direction:column;gap:12px;align-items:center}
+.jargon-search-input{width:100%;max-width:420px;padding:10px 18px;border:1.5px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text);font-size:.9rem;font-family:inherit;outline:none;transition:border-color .2s}
+.jargon-search-input:focus{border-color:var(--accent)}
+.jargon-cats{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.jcat-btn{padding:6px 16px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);color:var(--muted);font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.jcat-btn.active,.jcat-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.jargon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.jterm{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:16px 18px;transition:box-shadow .2s}
+.jterm:hover{box-shadow:0 4px 18px rgba(168,139,250,.15)}
+.jterm-word{font-size:1rem;font-weight:900;color:var(--accent);margin-bottom:6px}
+.jterm-def{font-size:.82rem;color:var(--muted);line-height:1.6}
+.jargon-empty{text-align:center;padding:40px;color:var(--muted);font-size:.95rem}
+
+/* ── TIPS ── */
+.tips-header{text-align:center;margin-bottom:28px}
+.tips-title{font-size:1.6rem;font-weight:900;color:var(--text);margin-bottom:6px}
+.tips-sub{font-size:.9rem;color:var(--muted)}
+.tips-grid{display:flex;flex-direction:column;gap:18px}
+.tip-card{background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:24px 28px;display:flex;gap:20px;align-items:flex-start}
+.tip-num{font-size:2rem;font-weight:900;color:var(--accent2);opacity:.35;min-width:40px;line-height:1}
+.tip-heading{font-size:1rem;font-weight:800;color:var(--text);margin-bottom:8px}
+.tip-body{font-size:.87rem;color:var(--muted);line-height:1.7}
+.tej-note{margin:36px 0 16px;background:linear-gradient(135deg,#fce7f3,#ede9fe);border:2px solid var(--accent);border-radius:20px;padding:28px 32px}
+body.dark .tej-note{background:linear-gradient(135deg,#2d1b2d,#1e1a3a)}
+.tej-note-inner{display:flex;gap:18px;align-items:flex-start}
+.tej-note-emoji{font-size:2rem}
+.tej-note-text{font-size:.88rem;color:var(--text);line-height:1.75}
+
+/* ── DASHBOARD LABELS ── */
+.dash-label{font-weight:800;color:var(--muted);font-size:.82rem;margin-right:6px}
+.dash-val{font-size:.88rem;color:var(--text);font-weight:600}
+.dash-val.muted{color:var(--muted);font-weight:400}
+
+/* ── STATUS PILLS ── */
+.pill-track-on{background:#d1fae5;color:#065f46}
+.pill-track-ahead{background:#dbeafe;color:#1e40af}
+.pill-track-behind{background:#fee2e2;color:#991b1b}
+body.dark .pill-track-on{background:#064e3b;color:#6ee7b7}
+body.dark .pill-track-ahead{background:#1e3a5f;color:#93c5fd}
+body.dark .pill-track-behind{background:#7f1d1d;color:#fca5a5}
+
+/* ── FLOAT EMOJI ── */
+.float-em{position:absolute;font-size:2rem;pointer-events:none;z-index:9999;animation:floatUp 1.3s ease-out forwards}
+@keyframes floatUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-80px) scale(1.4)}}
+
+/* ── TOAST ── */
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--surface);border:2px solid var(--accent);border-radius:16px;padding:14px 24px;font-size:.87rem;font-weight:700;color:var(--text);z-index:10000;box-shadow:0 12px 40px rgba(232,121,160,.25);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;max-width:90vw;text-align:center}
+.toast.show{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+
+/* ── COUNTDOWN LIVE ── */
+.countdown-live{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:4px}
+.cd-unit{display:flex;flex-direction:column;align-items:center;min-width:52px}
+.cd-num{font-size:1.6rem;font-weight:900;color:var(--accent);line-height:1}
+.cd-label{font-size:.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-top:2px}
+
+/* ── FIX TAG SPACING ── */
+.step-hd{margin-bottom:4px}
+.step-chips{margin-top:8px;margin-bottom:12px}
+.step-inst{margin-top:0}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+  .topbar{padding:8px 12px;gap:5px}
+  .topbar-brand{font-size:.85rem}
+  .topbar-tabs{display:none}
+  .tbar{width:50px}
+  .main-tabs{padding:0 12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .main-tab-btn{padding:10px 14px;font-size:.8rem;white-space:nowrap}
+  .hero{padding:36px 16px 32px}
+  .hero h1{font-size:1.6rem}
+  .hero-stats{gap:7px}
+  .hero-stat{padding:8px 11px;min-width:68px}
+  .hero-stat-val{font-size:1.2rem}
+  .prog-section,.dash-wrap{padding:0 12px}
+  .prog-card{padding:16px 14px}
+  .big-bar-meta{flex-direction:column;align-items:flex-start;gap:4px}
+  .phase-mini-grid{grid-template-columns:repeat(2,1fr)}
+  .container{padding:0 12px 80px}
+  .phase-hd{padding:14px 14px;gap:8px;flex-wrap:wrap}
+  .phase-icon{font-size:1.3rem}
+  .phase-hd-text .phase-title{font-size:.92rem}
+  .phase-hd-text .phase-dates{font-size:.68rem}
+  .step{padding:14px 14px}
+  .step-title{font-size:.9rem}
+  .res-grid{gap:8px}
+  .resource-card{padding:12px 12px}
+  .res-title{font-size:.84rem}
+  .res-desc{font-size:.75rem}
+  .res-foot{gap:5px}
+  .res-actions{margin-left:0;width:100%;margin-top:6px}
+  .res-actions .btn-open,.res-actions .btn-start,.res-actions .btn-finish,.res-actions .btn-undo{flex:1;text-align:center}
+  .dash-card{padding:14px 12px}
+  .dash-cols{grid-template-columns:1fr}
+  .playground-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .jargon-grid,.jterm{font-size:.82rem}
+  .jargon-grid{grid-template-columns:1fr}
+  .tips-grid{grid-template-columns:1fr}
+  .tip-card{flex-direction:column;gap:8px;padding:16px}
+  .tip-num{font-size:1.5rem}
+  .rhythm-box{padding:16px 14px}
+  .cd-num{font-size:1.3rem}
+  .cd-unit{min-width:42px}
+  .ult-inner{padding:0 12px}
+  .ult-title{font-size:1.6rem!important}
+  .cel-card{padding:28px 20px}
+  .login-card{padding:32px 24px}
+}
+@media(max-width:380px){
+  .hero-stats{gap:5px}
+  .hero-stat{min-width:56px;padding:6px 8px}
+  .hero-stat-val{font-size:1rem}
+  .playground-grid{grid-template-columns:1fr}
+  .phase-mini-grid{grid-template-columns:1fr}
+}
+
+/* ── SCROLL-TO-CURRENT HIGHLIGHT ── */
+.resource-card.state-ip{scroll-margin-top:120px}
+</style>
+</head>
+<body>
+
+<div id="toast" class="toast"></div>
+<div id="confetti-layer"></div>
+
+<!-- PHASE CELEBRATION -->
+<div id="celebration">
+  <div class="cel-card">
+    <span class="cel-emoji" id="cel-emoji">🎉</span>
+    <div class="cel-title" id="cel-title">Phase Complete!</div>
+    <div class="cel-msg" id="cel-msg">Amazing work!</div>
+    <button class="cel-btn" onclick="closeCelebration()">Keep Going! 🚀</button>
+  </div>
+</div>
+
+<!-- ULTIMATE CELEBRATION -->
+<div id="ultimate">
+  <div class="ult-glow"></div>
+  <div class="ult-inner">
+    <div class="ult-emojis">🎓✨🚀💜🎊</div>
+    <div class="ult-title">You Actually Did It!</div>
+    <div class="ult-sub">From "no practical skills" to a fully trained<br><strong>HyperAutomation Engineer.</strong><br>Every single resource. Every phase. Done. 🌟</div>
+    <div class="ult-note">
+      <p>I always knew you'd get here. You have the math brain, the drive, and now the technical skills to back it all up. They got incredibly lucky, and you're about to prove it every single day. This plan was just the starting gun. Where you go from here is limitless.</p>
+      <div class="sig">With love, Tej 💙</div>
+    </div>
+    <button class="ult-btn" onclick="document.getElementById('ultimate').classList.remove('show')">🚀 To Infinity and Beyond!</button>
+  </div>
+</div>
+
+<!-- STATS MODAL -->
+<div id="stats-modal" style="position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:998;padding:20px;overflow-y:auto">
+  <div style="background:var(--surface);border-radius:20px;padding:28px;max-width:520px;width:100%;max-height:80vh;overflow-y:auto;box-shadow:var(--sh3)">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h3 style="font-size:1.1rem;font-weight:900">📊 Your Learning Stats</h3>
+      <button onclick="document.getElementById('stats-modal').style.display='none'" style="background:var(--surface2);padding:6px 12px;border-radius:10px;font-size:.8rem;color:var(--muted)">Close</button>
+    </div>
+    <div id="stats-content" style="font-size:.84rem;color:var(--muted);line-height:1.7"></div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <span class="login-logo">🌸</span>
+    <div class="login-title">Your Learning Journey</div>
+    <div class="login-sub">A personal guided roadmap built just for you.<br>Enter your secret password to unlock ✨</div>
+    <div class="login-wrap">
+      <input type="password" class="login-input" id="pw-input" placeholder="Enter password…" onkeydown="if(event.key==='Enter')doLogin()"/>
+      <button class="pw-eye" onclick="togglePw()" id="pw-eye">👁</button>
+    </div>
+    <div class="login-err" id="login-err" style="display:none"></div>
+    <button class="login-btn" onclick="doLogin()">Let's Go! ✨</button>
+    <div class="login-foot">Built with 💜 &nbsp;·&nbsp; Your Journey Starts Here 🌟</div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <span class="topbar-brand">🎬 Yashu @ Paramount</span>
+  <div class="topbar-tabs">
+    <a href="#phase0" class="topbar-tab">🔥 Sprint</a>
+    <a href="#phase1" class="topbar-tab">🏗️ Foundations</a>
+    <a href="#phase2" class="topbar-tab">🤖 Core AI</a>
+    <a href="#phase3" class="topbar-tab">🔧 Job Tools</a>
+    <a href="#phase4" class="topbar-tab">🚀 Level Up</a>
+  </div>
+  <div class="topbar-right">
+    <div class="topbar-prog">
+      <span>Progress:</span>
+      <div class="tbar"><div class="tbar-fill" id="nav-fill"></div></div>
+      <span class="tbar-pct" id="nav-pct">0%</span>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" id="theme-btn">🌙</button>
+    <button class="lock-btn" onclick="doLogout()" title="Lock">🔒</button>
+  </div>
+</nav>
+
+<!-- TAB BUTTONS -->
+<div class="main-tabs">
+  <button class="main-tab-btn active" id="tab-btn-learn" onclick="showTab('learn')">📚 Learning Path</button>
+  <button class="main-tab-btn" id="tab-btn-jargon" onclick="showTab('jargon')">🗣️ Jargon Cheat Sheet</button>
+  <button class="main-tab-btn" id="tab-btn-tips" onclick="showTab('tips')">💡 Tej's Tips</button>
+</div>
+
+<!-- ════════════════════════════════════ -->
+<!-- TAB: LEARNING PATH                  -->
+<!-- ════════════════════════════════════ -->
+<div class="tab-view active" id="tab-learn">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-in">
+    <div class="hero-badge">🎬 Paramount · Systems Integration Analyst · HyperAutomation Team</div>
+    <h1>Yashu's Tech Learning Journey</h1>
+    <div class="hero-sub">A complete guided roadmap, Python, AI, APIs, RAG, RPA and everything your role demands.</div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-val">24</div><div class="hero-stat-label">Weeks</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">50</div><div class="hero-stat-label">Resources</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">20</div><div class="hero-stat-label">Guided Steps</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">1.5 to 2h</div><div class="hero-stat-label">Daily</div></div>
+    </div>
+    <div class="countdown" id="countdown-box">⚡ Loading…</div>
+  </div>
+</div>
+
+<!-- OVERALL PROGRESS -->
+<div class="prog-section">
+  <div class="prog-card">
+    <div class="prog-head"><h2>✨ Your Progress</h2><div style="display:flex;gap:6px"><button class="reset-btn" style="background:var(--surface2);border-color:var(--border);color:var(--muted)" onclick="showStats()">📊 Stats</button><button class="reset-btn" onclick="resetAll()">Reset All</button></div></div>
+    <div class="big-bar"><div class="big-bar-fill" id="big-fill"></div></div>
+    <div class="big-bar-meta"><span id="overall-count">0 of 50 resources completed</span><span id="overall-pct">0%</span></div>
+    <div class="phase-mini-grid">
+      <div class="phase-mini"><div class="phase-mini-label" style="color:var(--p0)"><span>🔥 Sprint</span><span id="p0-mpct">0%</span></div><div class="mini-bar"><div class="mini-bar-fill ph0-fill" id="p0-mfill"></div></div></div>
+      <div class="phase-mini"><div class="phase-mini-label" style="color:var(--p1)"><span>🏗️ Foundations</span><span id="p1-mpct">0%</span></div><div class="mini-bar"><div class="mini-bar-fill ph1-fill" id="p1-mfill"></div></div></div>
+      <div class="phase-mini"><div class="phase-mini-label" style="color:var(--p2)"><span>🤖 Core AI</span><span id="p2-mpct">0%</span></div><div class="mini-bar"><div class="mini-bar-fill ph2-fill" id="p2-mfill"></div></div></div>
+      <div class="phase-mini"><div class="phase-mini-label" style="color:var(--p3)"><span>🔧 Job Tools</span><span id="p3-mpct">0%</span></div><div class="mini-bar"><div class="mini-bar-fill ph3-fill" id="p3-mfill"></div></div></div>
+      <div class="phase-mini"><div class="phase-mini-label" style="color:var(--p4)"><span>🚀 Level Up</span><span id="p4-mpct">0%</span></div><div class="mini-bar"><div class="mini-bar-fill ph4-fill" id="p4-mfill"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dash-wrap">
+  <div class="dash-card">
+    <div class="dash-status-row" id="dash-status-row">
+      <span class="status-pill sp-track" id="dash-status-pill">📊 Calculating…</span>
+      <span class="dash-status-msg" id="dash-status-msg"></span>
+    </div>
+    <div class="dash-cols">
+      <div>
+        <div class="dash-col-lbl">🔄 Currently In Progress</div>
+        <div id="dash-ip"><div class="dash-empty">Nothing started yet, pick a resource below and hit ▶ Start!</div></div>
+      </div>
+      <div>
+        <div class="dash-col-lbl">⏭ Up Next</div>
+        <div id="dash-next"><div class="dash-empty">Loading…</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASES CONTAINER -->
+<div class="container">
+
+<!-- ═══════════ PHASE 0 ═══════════ -->
+<div class="phase-section" id="phase0">
+  <div class="phase-hd ph0" onclick="togglePhase(this)">
+    <div class="phase-icon">🔥</div>
+    <div class="phase-hd-text"><div class="phase-title">Phase 0: Emergency Sprint</div><div class="phase-dates">Apr 6 to 12 · 7 days before Day 1 · ~2 hrs/day</div></div>
+    <div class="phase-badge">DO THIS NOW</div>
+    <div class="phase-bar-wrap"><div class="phase-bar"><div class="phase-bar-fill" id="p0-bar"></div></div><div class="phase-bar-lbl" id="p0-label">0/0</div></div>
+    <span class="phase-hd-toggle">▾</span>
+  </div>
+  <div class="phase-body">
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 1 of 20</span><span class="step-title">Complete ALL 4 Parts of DL.ai AI Python for Beginners</span></div>
+      <div class="step-chips"><span class="chip">Apr 6 to 10</span><span class="chip">~10.5 hrs total</span><span class="chip chip-must">🔴 Must</span></div>
+      <div class="step-inst">
+        <strong>You already started Part 1 today, keep going.</strong> The goal is to finish all 4 parts before April 13.<br><br>
+        <strong>Part 1, Basics</strong> (finish by Apr 7): Variables, data types, functions, writing prompts for LLMs.<br>
+        <strong>Part 2, Automating Tasks</strong> (Apr 7 to 8): Loops, conditionals, making code repeat decisions.<br>
+        <strong>Part 3, Working with Data &amp; Documents</strong> (Apr 9): Reading/writing files, having AI analyze text. <em>Pay extra attention, directly job-relevant.</em><br>
+        <strong>Part 4, Packages &amp; APIs</strong> (Apr 10): Installing packages with pip, calling real APIs. <em>The pattern you'll use every day at Paramount.</em><br><br>
+        <span class="arrow">→</span> Every lesson has a coding panel. <strong>Type everything yourself, do not copy-paste.</strong> The typing is the learning.<br>
+        <span class="arrow">→</span> After each lesson, open <a href="https://colab.research.google.com" target="_blank" style="color:var(--accent)">Google Colab</a> and try to recreate what you just wrote from memory.<br>
+        <span class="arrow">→</span> When confused: paste the code into ChatGPT or Claude and ask "explain this like I just started Python."
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-must" id="res-c-p0-1" data-res="c-p0-1" data-phase="0">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p0-1">⭕ Not Started</span><div class="badges"><span class="badge badge-course">Course</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.deeplearning.ai/short-courses/ai-python-for-beginners/" target="_blank" class="res-title">AI Python for Beginners, All 4 Parts (DeepLearning.ai)</a>
+          <div class="res-desc">Andrew Ng's Python course built for the AI era. 35 lessons, ~10.5 hrs. All 4 parts: variables through API calls, with AI context baked in throughout.</div>
+          <div class="res-foot"><span class="res-time">~10.5 hrs (4 parts)</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://www.deeplearning.ai/short-courses/ai-python-for-beginners/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p0-1')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p0-1')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p0-1')">↩</button></div></div>
+          <div class="res-date" id="date-c-p0-1"></div>
+        </div>
+      </div>
+      <div class="tip-inline">ChatGPT and Claude are your study partners, not cheating. Paste your errors and ask them to explain like you just started. They're infinitely patient and available at 2am.</div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 2 of 20</span><span class="step-title">Git: Learn Version Control</span></div>
+      <div class="step-chips"><span class="chip">Apr 8</span><span class="chip">~2 hrs</span><span class="chip chip-must">🔴 Must</span></div>
+      <div class="step-inst">
+        <span class="arrow">→</span> Create a free GitHub account at <a href="https://github.com" target="_blank" style="color:var(--accent)">github.com</a> if you don't have one.<br>
+        <span class="arrow">→</span> Go to <a href="https://skills.github.com" target="_blank" style="color:var(--accent)">skills.github.com</a> and complete <strong>"Introduction to GitHub"</strong>, it creates a real repo in your account and guides you through commits, branches, and PRs.<br>
+        <span class="arrow">→</span> Then complete <strong>"Communicate using Markdown"</strong> (20 min), you'll write formatted notes like this every day at work.<br>
+        <span class="arrow">→</span> Everything you write from this day forward gets pushed to GitHub. <strong>This is your portfolio.</strong>
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-must" id="res-c-p0-2" data-res="c-p0-2" data-phase="0">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p0-2">⭕ Not Started</span><div class="badges"><span class="badge badge-interactive">Interactive</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://skills.github.com/" target="_blank" class="res-title">GitHub Skills, Official Interactive Tutorial</a>
+          <div class="res-desc">Learn Git by doing it on real GitHub repos. Make actual commits, branches, and pull requests. Complete "Introduction to GitHub" and "Communicate using Markdown".</div>
+          <div class="res-foot"><span class="res-time">~2 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://skills.github.com/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p0-2')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p0-2')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p0-2')">↩</button></div></div>
+          <div class="res-date" id="date-c-p0-2"></div>
+        </div>
+      </div>
+      <div class="enrichment"><span>🎬</span><span>Quick watch (2 min): <a href="https://www.youtube.com/watch?v=hwP7WQkmECE" target="_blank">Git in 100 Seconds (Fireship)</a></span></div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 3 of 20</span><span class="step-title">AI Orientation: Understand What You're Actually Building</span></div>
+      <div class="step-chips"><span class="chip">Apr 8 evening</span><span class="chip">~45 min</span><span class="chip chip-must">🔴 Must</span></div>
+      <div class="step-inst">No coding tonight. Just watching. <strong>Don't take notes, let it wash over you.</strong> The goal is that the words feel familiar when colleagues use them in week 1.</div>
+      <div class="res-grid">
+        <div class="resource-card priority-must" id="res-c-p0-3" data-res="c-p0-3" data-phase="0">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p0-3">⭕ Not Started</span><div class="badges"><span class="badge badge-video">Video</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.youtube.com/watch?v=wjZofJX0v4M" target="_blank" class="res-title">But what is a GPT? Visual intro to Transformers, 3Blue1Brown</a>
+          <div class="res-desc">The best visual explanation of how LLMs actually work. Your math background will make this click faster than most people.</div>
+          <div class="res-foot"><span class="res-time">27 min</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://www.youtube.com/watch?v=wjZofJX0v4M" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p0-3')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p0-3')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p0-3')">↩</button></div></div>
+          <div class="res-date" id="date-c-p0-3"></div>
+        </div>
+        <div class="resource-card priority-must" id="res-c-p0-4" data-res="c-p0-4" data-phase="0">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p0-4">⭕ Not Started</span><div class="badges"><span class="badge badge-video">Video</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.youtube.com/watch?v=T-D1OfcDW1M" target="_blank" class="res-title">What is RAG? (IBM Technology)</a>
+          <div class="res-desc">RAG is literally in your job description. This 8-min explainer will make you understand it the first time a colleague says it in a meeting.</div>
+          <div class="res-foot"><span class="res-time">8 min</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://www.youtube.com/watch?v=T-D1OfcDW1M" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p0-4')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p0-4')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p0-4')">↩</button></div></div>
+          <div class="res-date" id="date-c-p0-4"></div>
+        </div>
+        <div class="resource-card priority-must" id="res-c-p0-5" data-res="c-p0-5" data-phase="0">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p0-5">⭕ Not Started</span><div class="badges"><span class="badge badge-video">Video</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.youtube.com/watch?v=9URSbTOE4YI" target="_blank" class="res-title">What is RPA? (Tech Overview)</a>
+          <div class="res-desc">Understand what software bots do before you start building them. Gives you the concept before you touch the tools at Paramount.</div>
+          <div class="res-foot"><span class="res-time">10 min</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://www.youtube.com/watch?v=9URSbTOE4YI" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p0-5')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p0-5')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p0-5')">↩</button></div></div>
+          <div class="res-date" id="date-c-p0-5"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 4 of 20</span><span class="step-title">REST APIs: First Contact</span></div>
+      <div class="step-chips"><span class="chip">Apr 11</span><span class="chip">~1.5 hrs</span><span class="chip chip-must">🔴 Must</span></div>
+      <div class="step-inst">
+        <span class="arrow">→</span> Watch the Fireship video first. Watch it twice. Core concept: your code asks a server for something, the server replies with JSON.<br>
+        <span class="arrow">→</span> Read Real Python sections 1 to 4 only. Type every code example into Replit as you go.<br>
+        <span class="arrow">→</span> Install Postman. In the URL bar type <code style="background:var(--surface2);padding:1px 5px;border-radius:4px">https://api.kanye.rest</code> and hit Send. You'll see a JSON response.<br>
+        <span class="arrow">→</span> <strong>Mini challenge:</strong> Call the Kanye API from Python using <code style="background:var(--surface2);padding:1px 5px;border-radius:4px">requests.get()</code> and print the quote. This is the pattern for every API integration you'll build at work.
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-must" id="res-c-p0-6" data-res="c-p0-6" data-phase="0">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p0-6">⭕ Not Started</span><div class="badges"><span class="badge badge-video">Video</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.youtube.com/watch?v=-MTSQjw5DrM" target="_blank" class="res-title">REST API in 100 Seconds (Fireship)</a>
+          <div class="res-desc">Fastest possible API explainer. Watch it twice.</div>
+          <div class="res-foot"><span class="res-time">2 min</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://www.youtube.com/watch?v=-MTSQjw5DrM" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p0-6')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p0-6')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p0-6')">↩</button></div></div>
+          <div class="res-date" id="date-c-p0-6"></div>
+        </div>
+        <div class="resource-card priority-must" id="res-c-p0-7" data-res="c-p0-7" data-phase="0">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p0-7">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Article</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://realpython.com/python-requests/" target="_blank" class="res-title">Python Requests Library (Real Python) (sections 1 to 4)</a>
+          <div class="res-desc">Read "Getting Started", "The GET Request", "Request Headers", "Query String Parameters" only. Type every example into Replit as you go.</div>
+          <div class="res-foot"><span class="res-time">30 min</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://realpython.com/python-requests/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p0-7')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p0-7')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p0-7')">↩</button></div></div>
+          <div class="res-date" id="date-c-p0-7"></div>
+        </div>
+        <div class="resource-card priority-must" id="res-c-p0-8" data-res="c-p0-8" data-phase="0">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p0-8">⭕ Not Started</span><div class="badges"><span class="badge badge-tool">Tool</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.postman.com/downloads/" target="_blank" class="res-title">Download &amp; Install Postman</a>
+          <div class="res-desc">Industry-standard API testing tool. Download, install, and make your first request to https://api.kanye.rest. Your colleagues use this every day.</div>
+          <div class="res-foot"><span class="res-time">20 min setup</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://www.postman.com/downloads/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p0-8')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p0-8')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p0-8')">↩</button></div></div>
+          <div class="res-date" id="date-c-p0-8"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 5 of 20</span><span class="step-title">Read the Jargon Cheat Sheet</span></div>
+      <div class="step-chips"><span class="chip">Apr 12</span><span class="chip">~30 min</span><span class="chip chip-must">🔴 Must</span></div>
+      <div class="step-inst">
+        <span class="arrow">→</span> Click the <strong>"🗣️ Jargon"</strong> tab and read through the full cheat sheet once. Don't memorize, just make sure no word is completely foreign.<br>
+        <span class="arrow">→</span> Bookmark this site. Open the Jargon tab before your first few meetings at work.<br>
+        <span class="arrow">→</span> After one month at Paramount, you'll stop needing it. But in week 1 it's the difference between following a conversation and feeling completely lost.
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-must" id="res-c-p0-9" data-res="c-p0-9" data-phase="0">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p0-9">⭕ Not Started</span><div class="badges"><span class="badge badge-tool">Reference</span><span class="badge badge-free">Free</span></div></div>
+          <span class="res-title" style="cursor:default">Jargon Cheat Sheet (on this site)</span>
+          <div class="res-desc">50+ AI, tech, and corporate terms explained in plain English. Click the "🗣️ Jargon" tab above. Read once, reference forever.</div>
+          <div class="res-foot"><span class="res-time">~30 min</span><span class="res-stars">★★★★★</span><div class="res-actions"><button onclick="showTab('jargon')" class="btn-open">🗣️ Open Jargon</button><button class="btn-start" onclick="startRes('c-p0-9')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p0-9')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p0-9')">↩</button></div></div>
+          <div class="res-date" id="date-c-p0-9"></div>
+        </div>
+      </div>
+    </div>
+    <div class="done-toggle" id="done-toggle-0" onclick="toggleDone(0)" style="display:none">▾ Show 0 completed</div>
+
+  </div><!-- /phase-body -->
+</div><!-- /phase0 -->
+
+<!-- ═══════════ PHASE 1 ═══════════ -->
+<div class="phase-section" id="phase1">
+  <div class="phase-hd ph1" onclick="togglePhase(this)">
+    <div class="phase-icon">🏗️</div>
+    <div class="phase-hd-text"><div class="phase-title">Phase 1: Build Your Foundation</div><div class="phase-dates">Apr 13  to  May 24 · Weeks 1 to 6 · 1.5 to 2 hrs/day evenings</div></div>
+    <div class="phase-badge">WEEKS 1 to 6</div>
+    <div class="phase-bar-wrap"><div class="phase-bar"><div class="phase-bar-fill" id="p1-bar"></div></div><div class="phase-bar-lbl" id="p1-label">0/0</div></div>
+    <span class="phase-hd-toggle">▾</span>
+  </div>
+  <div class="phase-body">
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 6 of 20</span><span class="step-title">Python Reinforcement: From Knowing to Fluent</span></div>
+      <div class="step-chips"><span class="chip">Weeks 1 to 3</span><span class="chip">Ongoing reference</span><span class="chip chip-must">🔴 Must</span></div>
+      <div class="step-inst">
+        You've done the DL.ai course. Now you reinforce through practical use and reference material.<br><br>
+        <span class="arrow">→</span> <strong>Automate the Boring Stuff</strong>: Use as a search reference, don't read cover to cover. Most relevant chapters: 8 (files), 9 (file organization), 13 (CSV/Excel). Google "automate the boring stuff [what you need]" when stuck.<br>
+        <span class="arrow">→</span> <strong>Real Python</strong>: Proactively read these in weeks 1 to 2: list comprehensions, error handling (try/except), f-strings, working with JSON. Use as reference after.<br>
+        <span class="arrow">→</span> <strong>Exercism</strong>: From week 2, do 2 to 3 exercises per week. Start Easy difficulty. After submitting, look at Community Solutions, reading elegant solutions teaches better Python habits faster than any tutorial.<br>
+        <span class="arrow">→</span> <strong>Python Crash Course</strong>: Read Part 1 (Chapters 1 to 11) if you want a well-structured written reference. Skip Part 2 for now.
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-must ref-only" id="res-c-p1-1" data-res="c-p1-1" data-phase="1">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p1-1">⭕ Not Started</span><div class="badges"><span class="badge badge-book">📖 Optional Reference</span></div></div>
+          <a href="https://automatetheboringstuff.com/" target="_blank" class="res-title">Automate the Boring Stuff with Python (Free Online)</a>
+          <div class="res-desc">The bible for practical Python scripting. Teaches scripts that DO things: manipulate files, work with Excel, scrape pages, send emails. Use as a reference, search for what you need.</div>
+          <div class="res-foot"><span class="res-time">Reference, as needed</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://automatetheboringstuff.com/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p1-1')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p1-1')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p1-1')">↩</button></div></div>
+          <div class="res-date" id="date-c-p1-1"></div>
+        </div>
+        <div class="resource-card priority-must" id="res-c-p1-2" data-res="c-p1-2" data-phase="1">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p1-2">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Articles</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://realpython.com/start-here/" target="_blank" class="res-title">Real Python, Start Here (Beginner Topics)</a>
+          <div class="res-desc">Best written Python tutorials. Read proactively: list comprehensions, try/except, f-strings, JSON in Python. Use as reference after that, just Google "real python [topic]".</div>
+          <div class="res-foot"><span class="res-time">2 to 3 hrs proactive + reference</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://realpython.com/start-here/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p1-2')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p1-2')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p1-2')">↩</button></div></div>
+          <div class="res-date" id="date-c-p1-2"></div>
+        </div>
+        <div class="resource-card priority-high" id="res-c-p1-3" data-res="c-p1-3" data-phase="1">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p1-3">⭕ Not Started</span><div class="badges"><span class="badge badge-interactive">Practice</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://exercism.org/tracks/python" target="_blank" class="res-title">Exercism.io, Python Track</a>
+          <div class="res-desc">Mentored coding exercises. Start Easy difficulty in week 2, do 2 to 3/week. After submitting, read Community Solutions, seeing how experienced devs solve the same problem teaches fluency fast.</div>
+          <div class="res-foot"><span class="res-time">2 to 3 exercises/week from Week 2</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://exercism.org/tracks/python" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p1-3')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p1-3')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p1-3')">↩</button></div></div>
+          <div class="res-date" id="date-c-p1-3"></div>
+        </div>
+        <div class="resource-card priority-high ref-only" id="res-c-p1-4" data-res="c-p1-4" data-phase="1">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p1-4">⭕ Not Started</span><div class="badges"><span class="badge badge-book">📖 Optional Reference</span></div></div>
+          <span class="res-title" style="cursor:default">Python Crash Course by Eric Matthes</span>
+          <div class="res-desc">The best beginner Python book. Read Part 1 (Chapters 1 to 11) for a structured written reference. Skip Part 2 projects for now. Get from library or buy, worth it.</div>
+          <div class="res-foot"><span class="res-time">Chapters 1 to 11 when convenient</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://nostarch.com/python-crash-course-3rd-edition" target="_blank" class="btn-open">🔗 Find</a><button class="btn-start" onclick="startRes('c-p1-4')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p1-4')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p1-4')">↩</button></div></div>
+          <div class="res-date" id="date-c-p1-4"></div>
+        </div>
+      </div>
+      <div class="mini-project">
+        <div class="mini-project-hd">🎯 Mini Project, End of Week 3</div>
+        <p>Write a Python script that: calls a free public API (try <a href="https://openweathermap.org/api" target="_blank" style="color:#b45309">OpenWeatherMap</a>), parses the JSON response, prints a human-readable sentence ("It's 72°F and partly cloudy in LA"), saves to a text file with a timestamp, and handles errors with try/except. Push to GitHub with a README. This is the exact fetch → parse → store pattern you'll use in enterprise integrations at Paramount.</p>
+      </div>
+      <div class="tip-inline">Don't memorize syntax. Professional developers Google everything. What matters is knowing what's possible and being able to find the right tool quickly.</div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 7 of 20</span><span class="step-title">Git: Go Deeper</span></div>
+      <div class="step-chips"><span class="chip">Week 1</span><span class="chip">~2 hrs</span><span class="chip chip-must">🔴 Must</span></div>
+      <div class="step-inst">
+        <span class="arrow">→</span> Read the Atlassian "What is Git?" guide for the mental model, better written than most videos.<br>
+        <span class="arrow">→</span> Read "Using Branches". Know this flow cold: <strong>create branch → commit → open PR → merge.</strong> Practice it on one of your own repos right after reading.<br>
+        <span class="arrow">→</span> Bookmark Pro Git. Don't read it, search it when you hit a specific Git problem at work.<br>
+        <span class="arrow">→</span> Oh My Git is optional but genuinely fun, a video game that teaches branching visually.
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-must" id="res-c-p1-5" data-res="c-p1-5" data-phase="1">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p1-5">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Articles</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.atlassian.com/git/tutorials/what-is-git" target="_blank" class="res-title">Atlassian, What is Git? + Using Branches</a>
+          <div class="res-desc">Best written Git explanations online. Read "What is Git?" (15 min) for the mental model, then "Using Branches" (20 min) for the daily workflow.</div>
+          <div class="res-foot"><span class="res-time">~35 min</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://www.atlassian.com/git/tutorials/using-branches" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p1-5')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p1-5')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p1-5')">↩</button></div></div>
+          <div class="res-date" id="date-c-p1-5"></div>
+        </div>
+        <div class="resource-card priority-high ref-only" id="res-c-p1-6" data-res="c-p1-6" data-phase="1">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p1-6">⭕ Not Started</span><div class="badges"><span class="badge badge-book">📖 Optional Reference</span></div></div>
+          <a href="https://git-scm.com/book/en/v2" target="_blank" class="res-title">Pro Git Book (Free Official Reference)</a>
+          <div class="res-desc">Definitive Git reference. Don't read linearly, bookmark and search it when you hit a specific Git problem at work. It has the answer to every Git question ever asked.</div>
+          <div class="res-foot"><span class="res-time">Ch 1 to 3 if reading; otherwise reference</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://git-scm.com/book/en/v2" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p1-6')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p1-6')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p1-6')">↩</button></div></div>
+          <div class="res-date" id="date-c-p1-6"></div>
+        </div>
+        <div class="resource-card priority-opt" id="res-c-p1-7" data-res="c-p1-7" data-phase="1">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p1-7">⭕ Not Started</span><div class="badges"><span class="badge badge-game">Game</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://ohmygit.org/" target="_blank" class="res-title">Oh My Git!, Learn Git Through a Game</a>
+          <div class="res-desc">An open-source video game for learning Git. Genuinely fun. Play for 2 hours on a weekend if you want branching to click visually.</div>
+          <div class="res-foot"><span class="res-time">~2 hrs optional</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://ohmygit.org/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p1-7')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p1-7')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p1-7')">↩</button></div></div>
+          <div class="res-date" id="date-c-p1-7"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 8 of 20</span><span class="step-title">REST APIs: From Understanding to Actually Using Them</span></div>
+      <div class="step-chips"><span class="chip">Weeks 2 to 3</span><span class="chip">~5 hrs</span><span class="chip chip-must">🔴 Must</span></div>
+      <div class="step-inst">
+        <span class="arrow">→</span> Watch the freeCodeCamp video in two sittings, natural break around 1:45. Have Postman open beside the video and test every API they show.<br>
+        <span class="arrow">→</span> Read the full Real Python Requests article, this time read everything, not just sections 1 to 4. Type every code example.<br>
+        <span class="arrow">→</span> Complete the Postman Learning Center "Getting Started" path, it's the tool your team uses daily to test integrations before writing code.
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-must" id="res-c-p1-8" data-res="c-p1-8" data-phase="1">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p1-8">⭕ Not Started</span><div class="badges"><span class="badge badge-video">Video</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.youtube.com/watch?v=GZvSYJDk-us" target="_blank" class="res-title">APIs for Beginners (freeCodeCamp) (Full Course)</a>
+          <div class="res-desc">Comprehensive 3.5-hr API course. Covers REST concepts, authentication, testing with Postman, and calling APIs from code. The most thorough beginner API resource available.</div>
+          <div class="res-foot"><span class="res-time">3.5 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://www.youtube.com/watch?v=GZvSYJDk-us" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p1-8')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p1-8')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p1-8')">↩</button></div></div>
+          <div class="res-date" id="date-c-p1-8"></div>
+        </div>
+        <div class="resource-card priority-must" id="res-c-p1-9" data-res="c-p1-9" data-phase="1">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p1-9">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Article</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://realpython.com/python-requests/" target="_blank" class="res-title">Python Requests Library (Real Python) (Full Article)</a>
+          <div class="res-desc">Read the full article this time. Covers authentication, error handling, sessions, and advanced patterns you'll need for real enterprise API work.</div>
+          <div class="res-foot"><span class="res-time">~1.5 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://realpython.com/python-requests/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p1-9')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p1-9')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p1-9')">↩</button></div></div>
+          <div class="res-date" id="date-c-p1-9"></div>
+        </div>
+        <div class="resource-card priority-high" id="res-c-p1-10" data-res="c-p1-10" data-phase="1">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p1-10">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Docs</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://learning.postman.com/docs/getting-started/introduction/" target="_blank" class="res-title">Postman Learning Center, Getting Started</a>
+          <div class="res-desc">Official Postman docs. Complete the "Getting Started" path to understand collections, environments, variables, and automated testing, all things your team uses.</div>
+          <div class="res-foot"><span class="res-time">~1 hr</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://learning.postman.com/docs/getting-started/introduction/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p1-10')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p1-10')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p1-10')">↩</button></div></div>
+          <div class="res-date" id="date-c-p1-10"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 9 of 20</span><span class="step-title">SQL: Query Databases Without Fear</span></div>
+      <div class="step-chips"><span class="chip">Weeks 4 to 5</span><span class="chip">~6 hrs</span><span class="chip chip-must">🔴 Must</span></div>
+      <div class="step-inst">
+        <span class="arrow">→</span> Start with Mode Analytics, no signup needed, run real SQL in your browser immediately. Complete Basic SQL (SELECT, WHERE, ORDER BY) then Intermediate (JOINs, GROUP BY).<br>
+        <span class="arrow">→</span> SQL Murder Mystery: after Mode, this is the most fun SQL exercise that exists. You solve a crime using only SQL queries. Do it in one sitting (1 to 2 hrs), it makes JOINs click.<br>
+        <span class="arrow">→</span> SQLZoo: optional extra drill practice if you want more repetitions.
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-must" id="res-c-p1-11" data-res="c-p1-11" data-phase="1">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p1-11">⭕ Not Started</span><div class="badges"><span class="badge badge-interactive">Interactive</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://mode.com/sql-tutorial/" target="_blank" class="res-title">Mode Analytics SQL Tutorial, Browser-Based Interactive</a>
+          <div class="res-desc">Run real SQL queries in your browser, no setup needed. Complete Basic SQL then Intermediate (JOINs, aggregations, subqueries). Best hands-on SQL learning for data contexts.</div>
+          <div class="res-foot"><span class="res-time">~4 hrs (Basic + Intermediate)</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://mode.com/sql-tutorial/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p1-11')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p1-11')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p1-11')">↩</button></div></div>
+          <div class="res-date" id="date-c-p1-11"></div>
+        </div>
+        <div class="resource-card priority-must" id="res-c-p1-12" data-res="c-p1-12" data-phase="1">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p1-12">⭕ Not Started</span><div class="badges"><span class="badge badge-game">Game</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://mystery.knightlab.com/" target="_blank" class="res-title">SQL Murder Mystery, Solve a Crime Using SQL</a>
+          <div class="res-desc">Solve a murder mystery using only SQL queries. The most fun SQL exercise that exists. Makes JOINs click. Do it in one sitting, 1 to 2 hrs.</div>
+          <div class="res-foot"><span class="res-time">1 to 2 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://mystery.knightlab.com/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p1-12')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p1-12')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p1-12')">↩</button></div></div>
+          <div class="res-date" id="date-c-p1-12"></div>
+        </div>
+        <div class="resource-card priority-opt" id="res-c-p1-13" data-res="c-p1-13" data-phase="1">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p1-13">⭕ Not Started</span><div class="badges"><span class="badge badge-interactive">Practice</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://sqlzoo.net/" target="_blank" class="res-title">SQLZoo, Drill Practice</a>
+          <div class="res-desc">Extra SQL drill practice. Optional, use if you want more repetitions after Mode and SQL Murder Mystery. Good for testing specific SQL concepts.</div>
+          <div class="res-foot"><span class="res-time">Optional</span><span class="res-stars">★★★</span><div class="res-actions"><a href="https://sqlzoo.net/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p1-13')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p1-13')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p1-13')">↩</button></div></div>
+          <div class="res-date" id="date-c-p1-13"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 10 of 20</span><span class="step-title">JSON &amp; YAML: The Formats You'll See Everywhere</span></div>
+      <div class="step-chips"><span class="chip">Week 6</span><span class="chip">~35 min</span><span class="chip chip-must">🔴 Must</span></div>
+      <div class="step-inst">Do these during a lunch break, they're short and important. JSON is what every API returns and every AI system processes. YAML is what configuration files look like at work. Not knowing these would be like not knowing what a spreadsheet is.</div>
+      <div class="res-grid">
+        <div class="resource-card priority-must" id="res-c-p1-14" data-res="c-p1-14" data-phase="1">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p1-14">⭕ Not Started</span><div class="badges"><span class="badge badge-video">Video</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.youtube.com/watch?v=GpOO5iKzOmY" target="_blank" class="res-title">JSON Crash Course, Traversy Media</a>
+          <div class="res-desc">Everything you need to know about JSON in 25 minutes. The universal data format for APIs. You'll work with JSON every single day.</div>
+          <div class="res-foot"><span class="res-time">25 min</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://www.youtube.com/watch?v=GpOO5iKzOmY" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p1-14')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p1-14')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p1-14')">↩</button></div></div>
+          <div class="res-date" id="date-c-p1-14"></div>
+        </div>
+        <div class="resource-card priority-must" id="res-c-p1-15" data-res="c-p1-15" data-phase="1">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p1-15">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Article</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.redhat.com/en/topics/automation/what-is-yaml" target="_blank" class="res-title">What is YAML?, Red Hat</a>
+          <div class="res-desc">YAML is used for configuration files in GitHub Actions, Docker Compose, and most enterprise automation tools. This Red Hat article explains it clearly in 10 minutes.</div>
+          <div class="res-foot"><span class="res-time">10 min</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://www.redhat.com/en/topics/automation/what-is-yaml" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p1-15')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p1-15')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p1-15')">↩</button></div></div>
+          <div class="res-date" id="date-c-p1-15"></div>
+        </div>
+      </div>
+    </div>
+    <div class="done-toggle" id="done-toggle-1" onclick="toggleDone(1)" style="display:none">▾ Show 0 completed</div>
+
+  </div><!-- /phase-body -->
+</div><!-- /phase1 -->
+
+<!-- ═══════════ PHASE 2 ═══════════ -->
+<div class="phase-section" id="phase2">
+  <div class="phase-hd ph2" onclick="togglePhase(this)">
+    <div class="phase-icon">🤖</div>
+    <div class="phase-hd-text"><div class="phase-title">Phase 2: Core AI Engineering</div><div class="phase-dates">May 25  to  Jul 6 · Weeks 7 to 13 · 1.5 to 2 hrs/day</div></div>
+    <div class="phase-badge">WEEKS 7 to 13</div>
+    <div class="phase-bar-wrap"><div class="phase-bar"><div class="phase-bar-fill" id="p2-bar"></div></div><div class="phase-bar-lbl" id="p2-label">0/0</div></div>
+    <span class="phase-hd-toggle">▾</span>
+  </div>
+  <div class="phase-body">
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 11 of 20</span><span class="step-title">Prompt Engineering: The Skill That Makes Everything Else Work</span></div>
+      <div class="step-chips"><span class="chip">Weeks 7 to 8</span><span class="chip">~5 hrs</span><span class="chip chip-must">🔴 Must</span></div>
+      <div class="step-inst">
+        Start here in Phase 2: this is the most immediately applicable skill. You may already be observing prompt-based AI work at Paramount by now.<br><br>
+        <span class="arrow">→</span> Do the <strong>DeepLearning.ai course</strong> first (hands-on, code-based). This is the gold standard. Do every notebook exercise.<br>
+        <span class="arrow">→</span> Read the <strong>Anthropic guide</strong> next, Anthropic trains Claude, so their prompting guidance is the most authoritative source on how to write effective prompts.<br>
+        <span class="arrow">→</span> Bookmark <strong>Learn Prompting</strong> as a reference. You don't need to read it cover-to-cover, search it when you need a specific technique.
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-must" id="res-c-p2-1" data-res="c-p2-1" data-phase="2">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p2-1">⭕ Not Started</span><div class="badges"><span class="badge badge-course">Course</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/" target="_blank" class="res-title">ChatGPT Prompt Engineering for Developers (DeepLearning.ai)</a>
+          <div class="res-desc">The gold standard course on prompt engineering. Covers iterative prompting, summarization, inference, transforming, expanding, and building a chatbot. Do every notebook exercise.</div>
+          <div class="res-foot"><span class="res-time">~3 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p2-1')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p2-1')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p2-1')">↩</button></div></div>
+          <div class="res-date" id="date-c-p2-1"></div>
+        </div>
+        <div class="resource-card priority-must" id="res-c-p2-2" data-res="c-p2-2" data-phase="2">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p2-2">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Guide</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" class="res-title">Anthropic Prompt Engineering Guide</a>
+          <div class="res-desc">Anthropic trains Claude, so their prompting guidance is authoritative. Read the full guide, covers system prompts, few-shot examples, chain of thought, and structured outputs.</div>
+          <div class="res-foot"><span class="res-time">~1.5 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p2-2')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p2-2')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p2-2')">↩</button></div></div>
+          <div class="res-date" id="date-c-p2-2"></div>
+        </div>
+        <div class="resource-card priority-opt" id="res-c-p2-3" data-res="c-p2-3" data-phase="2">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p2-3">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Reference</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://learnprompting.org/" target="_blank" class="res-title">Learn Prompting, Open Source Guide</a>
+          <div class="res-desc">Comprehensive open-source prompting guide. Bookmark as a reference, search for specific techniques when you need them, rather than reading cover-to-cover.</div>
+          <div class="res-foot"><span class="res-time">Reference, as needed</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://learnprompting.org/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p2-3')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p2-3')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p2-3')">↩</button></div></div>
+          <div class="res-date" id="date-c-p2-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 12 of 20</span><span class="step-title">Azure AI &amp; OpenAI APIs: The Actual Platforms Your Team Uses</span></div>
+      <div class="step-chips"><span class="chip">Weeks 8 to 9</span><span class="chip">~6.5 hrs</span><span class="chip chip-must">🔴 Must</span></div>
+      <div class="step-inst">
+        <span class="arrow">→</span> Work through the full Microsoft Learn Azure AI path in order. Get a free Azure account and follow along hands-on. Paramount likely runs on Azure, this is your platform.<br>
+        <span class="arrow">→</span> Do the OpenAI API Quickstart in your own account, use Google Colab if you don't want to install locally. Write your first real API call from scratch.<br>
+        <span class="arrow">→</span> Do the Azure OpenAI Quickstart next, same concept but enterprise flavor. This is the version your team will use in production.<br>
+        <span class="arrow">→</span> Bookmark the OpenAI Cookbook. It has working code for almost every use case, search it before building anything new.
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-must" id="res-c-p2-4" data-res="c-p2-4" data-phase="2">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p2-4">⭕ Not Started</span><div class="badges"><span class="badge badge-course">Course</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://learn.microsoft.com/en-us/training/paths/get-started-ai-fundamentals/" target="_blank" class="res-title">Get Started with AI on Azure, Microsoft Learn</a>
+          <div class="res-desc">Official Microsoft learning path for Azure AI. Covers Azure OpenAI Service, Cognitive Services, and AI fundamentals. Hands-on labs included. Paramount likely runs on Azure.</div>
+          <div class="res-foot"><span class="res-time">~5 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://learn.microsoft.com/en-us/training/paths/get-started-ai-fundamentals/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p2-4')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p2-4')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p2-4')">↩</button></div></div>
+          <div class="res-date" id="date-c-p2-4"></div>
+        </div>
+        <div class="resource-card priority-must" id="res-c-p2-5" data-res="c-p2-5" data-phase="2">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p2-5">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Docs</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://platform.openai.com/docs/quickstart" target="_blank" class="res-title">OpenAI API Quickstart, Build Your First AI Call</a>
+          <div class="res-desc">Official OpenAI quickstart. Get an API key, install the SDK, and make your first API call in 10 lines of Python. Do this in Google Colab if you don't want to install locally.</div>
+          <div class="res-foot"><span class="res-time">~1.5 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://platform.openai.com/docs/quickstart" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p2-5')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p2-5')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p2-5')">↩</button></div></div>
+          <div class="res-date" id="date-c-p2-5"></div>
+        </div>
+        <div class="resource-card priority-must" id="res-c-p2-6" data-res="c-p2-6" data-phase="2">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p2-6">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Docs</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/quickstart" target="_blank" class="res-title">Azure OpenAI Quickstart, Enterprise Flavor</a>
+          <div class="res-desc">Same as OpenAI but through Azure, which is the enterprise deployment path. Covers authentication differences, deployment names, and the Azure SDK. This is what production looks like.</div>
+          <div class="res-foot"><span class="res-time">~1 hr</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/quickstart" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p2-6')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p2-6')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p2-6')">↩</button></div></div>
+          <div class="res-date" id="date-c-p2-6"></div>
+        </div>
+        <div class="resource-card priority-opt" id="res-c-p2-7" data-res="c-p2-7" data-phase="2">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p2-7">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Reference</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://cookbook.openai.com/" target="_blank" class="res-title">OpenAI Cookbook, Working Code Examples</a>
+          <div class="res-desc">A huge collection of working Python notebooks for every common AI task. Bookmark this and search it before building anything new, the recipe you need is probably here.</div>
+          <div class="res-foot"><span class="res-time">Reference, as needed</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://cookbook.openai.com/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p2-7')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p2-7')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p2-7')">↩</button></div></div>
+          <div class="res-date" id="date-c-p2-7"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 13 of 20</span><span class="step-title">RAG + LangGraph: Building the Core of Your Role</span></div>
+      <div class="step-chips"><span class="chip">Weeks 10 to 12</span><span class="chip">~12.5 hrs</span><span class="chip chip-must">🔴 Must</span></div>
+      <div class="step-inst">
+        Do these in strict order, each builds vocabulary the next one needs.<br><br>
+        <strong>13a</strong>, LangChain ecosystem foundation. Even though we prefer LangGraph, this course gives you the base concepts: chains, prompts, output parsers, memory.<br>
+        <strong>13b</strong>, RAG pipeline with LangChain: loading documents, splitting, embedding, vector stores, retrieval chains. This is your core job skill.<br>
+        <strong>13c</strong>, Advanced RAG: evaluation, reranking, fixing common RAG failures. Production-quality techniques.<br>
+        <strong>13d ⭐</strong>, AI Agents in LangGraph: THE main course. State machines, nodes, edges, conditional routing, tool calling. This is exactly what your team builds.
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-must" id="res-c-p2-8" data-res="c-p2-8" data-phase="2">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p2-8">⭕ Not Started</span><div class="badges"><span class="badge badge-course">Course</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.deeplearning.ai/short-courses/langchain-for-llm-application-development/" target="_blank" class="res-title">13a, LangChain for LLM App Development (DeepLearning.ai)</a>
+          <div class="res-desc">Foundation course for the LangChain ecosystem. Covers chains, prompts, parsers, memory, and agents. Required vocabulary for the RAG and LangGraph courses that follow.</div>
+          <div class="res-foot"><span class="res-time">~3 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://www.deeplearning.ai/short-courses/langchain-for-llm-application-development/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p2-8')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p2-8')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p2-8')">↩</button></div></div>
+          <div class="res-date" id="date-c-p2-8"></div>
+        </div>
+        <div class="resource-card priority-must" id="res-c-p2-9" data-res="c-p2-9" data-phase="2">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p2-9">⭕ Not Started</span><div class="badges"><span class="badge badge-course">Course</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/" target="_blank" class="res-title">13b, LangChain: Chat with Your Data (RAG) (DeepLearning.ai)</a>
+          <div class="res-desc">Build a RAG pipeline from scratch: document loading, text splitting, embedding, vector stores, retrieval, Q&amp;A chains. The core of your role. Do every notebook.</div>
+          <div class="res-foot"><span class="res-time">~3 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p2-9')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p2-9')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p2-9')">↩</button></div></div>
+          <div class="res-date" id="date-c-p2-9"></div>
+        </div>
+        <div class="resource-card priority-must" id="res-c-p2-10" data-res="c-p2-10" data-phase="2">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p2-10">⭕ Not Started</span><div class="badges"><span class="badge badge-course">Course</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.deeplearning.ai/short-courses/building-evaluating-advanced-rag/" target="_blank" class="res-title">13c, Building &amp; Evaluating Advanced RAG (DeepLearning.ai)</a>
+          <div class="res-desc">Advanced RAG techniques: sentence-window retrieval, auto-merging, evaluation with RAGAs. Covers how to actually measure and improve your RAG pipeline's quality.</div>
+          <div class="res-foot"><span class="res-time">~2.5 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://www.deeplearning.ai/short-courses/building-evaluating-advanced-rag/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p2-10')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p2-10')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p2-10')">↩</button></div></div>
+          <div class="res-date" id="date-c-p2-10"></div>
+        </div>
+        <div class="resource-card priority-must" id="res-c-p2-11" data-res="c-p2-11" data-phase="2">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p2-11">⭕ Not Started</span><div class="badges"><span class="badge badge-course">Course</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.deeplearning.ai/short-courses/ai-agents-in-langgraph/" target="_blank" class="res-title">13d, AI Agents in LangGraph (DeepLearning.ai) ⭐ THE MAIN COURSE</a>
+          <div class="res-desc">Build AI agents as graph state machines: nodes, edges, conditional routing, tool calling, human-in-the-loop. This is exactly what your HyperAutomation team builds. Do every single notebook.</div>
+          <div class="res-foot"><span class="res-time">~4 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://www.deeplearning.ai/short-courses/ai-agents-in-langgraph/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p2-11')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p2-11')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p2-11')">↩</button></div></div>
+          <div class="res-date" id="date-c-p2-11"></div>
+        </div>
+        <div class="resource-card priority-opt" id="res-c-p2-12" data-res="c-p2-12" data-phase="2">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p2-12">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Docs</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://langchain-ai.github.io/langgraph/" target="_blank" class="res-title">LangGraph Official Docs, Reference</a>
+          <div class="res-desc">Bookmark the official docs. After completing the courses, use this as your reference when building agents. The "How-to Guides" section is especially useful.</div>
+          <div class="res-foot"><span class="res-time">Reference</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://langchain-ai.github.io/langgraph/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p2-12')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p2-12')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p2-12')">↩</button></div></div>
+          <div class="res-date" id="date-c-p2-12"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 14 of 20</span><span class="step-title">Responsible AI: Core Concepts Only (One Sitting)</span></div>
+      <div class="step-chips"><span class="chip">Week 13</span><span class="chip">~1.5 hrs</span><span class="chip chip-high">🟡 High</span></div>
+      <div class="step-inst">Light-touch session, one sitting, done. Enterprise AI teams mention responsible AI as a framework, not a deep discipline.<br><br>
+        <span class="arrow">→</span> Do modules 1 to 2 of the "Building Safe &amp; Reliable AI Agents" course only. Focus on: guardrails, fallback behavior, and when to hand off to a human.<br>
+        <span class="arrow">→</span> Skim the Microsoft Responsible AI overview, just enough to use the vocabulary in meetings (fairness, reliability, privacy, inclusiveness, transparency, accountability).
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-high" id="res-c-p2-13" data-res="c-p2-13" data-phase="2">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p2-13">⭕ Not Started</span><div class="badges"><span class="badge badge-course">Course</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.deeplearning.ai/short-courses/building-safe-reliable-ai-agents/" target="_blank" class="res-title">Building Safe &amp; Reliable AI Agents (DeepLearning.ai)</a>
+          <div class="res-desc">Do the first 2 modules only. Focus on guardrails, fallback behavior, and human-in-the-loop patterns. Practical safety for production AI agents.</div>
+          <div class="res-foot"><span class="res-time">~1 hr (first 2 modules)</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://www.deeplearning.ai/short-courses/building-safe-reliable-ai-agents/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p2-13')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p2-13')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p2-13')">↩</button></div></div>
+          <div class="res-date" id="date-c-p2-13"></div>
+        </div>
+        <div class="resource-card priority-high" id="res-c-p2-14" data-res="c-p2-14" data-phase="2">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p2-14">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Article</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://learn.microsoft.com/en-us/azure/machine-learning/concept-responsible-ai" target="_blank" class="res-title">Microsoft Responsible AI Overview</a>
+          <div class="res-desc">Skim this 20-min read. Learn the 6 Microsoft principles: fairness, reliability, privacy, inclusiveness, transparency, accountability. Just enough to use these words fluently in meetings.</div>
+          <div class="res-foot"><span class="res-time">20 min</span><span class="res-stars">★★★</span><div class="res-actions"><a href="https://learn.microsoft.com/en-us/azure/machine-learning/concept-responsible-ai" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p2-14')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p2-14')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p2-14')">↩</button></div></div>
+          <div class="res-date" id="date-c-p2-14"></div>
+        </div>
+      </div>
+    </div>
+    <div class="done-toggle" id="done-toggle-2" onclick="toggleDone(2)" style="display:none">▾ Show 0 completed</div>
+
+  </div><!-- /phase-body -->
+</div><!-- /phase2 -->
+
+<!-- ===== PHASE 3 ===== -->
+<div class="phase-section" id="phase3">
+  <div class="phase-hd ph3" onclick="togglePhase(this)">
+    <div class="phase-icon">🔧</div>
+    <div class="phase-hd-text"><div class="phase-title">Phase 3: Ship It: Build &amp; Deploy Real Workflows</div><div class="phase-dates">Jul 7  to  Aug 17 · 6 weeks</div></div>
+    <div class="phase-bar-wrap"><div class="phase-bar"><div class="phase-bar-fill" id="p3-bar"></div></div><div class="phase-bar-lbl" id="p3-label">0/7</div></div>
+    <span class="phase-hd-toggle">▾</span>
+  </div>
+  <div class="phase-body">
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 15 of 20</span><span class="step-title">Build a Full Agentic Pipeline End-to-End</span></div>
+      <div class="step-chips"><span class="chip">Weeks 14 to 16</span><span class="chip">~8 hrs</span><span class="chip chip-must">🔴 Must</span></div>
+      <div class="step-inst">This is where it all clicks. Wire together retrieval, an LLM, tools, and memory into one working pipeline, from scratch.<br><br>
+        <span class="arrow">→</span> Work through the LangGraph "Build a Chatbot" + "Add Memory" tutorials. These map directly to how enterprise AI agents are built.<br>
+        <span class="arrow">→</span> Then do "LangChain for LLM Application Development", the full short course. Each lesson is a pattern you'll see in production.<br>
+        <span class="arrow">→</span> Build something small but real: a chatbot that answers questions about a document you upload.
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-must" id="res-c-p3-1" data-res="c-p3-1" data-phase="3">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p3-1">⭕ Not Started</span><div class="badges"><span class="badge badge-tutorial">Tutorial</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://langchain-ai.github.io/langgraph/tutorials/introduction/" target="_blank" class="res-title">LangGraph: Build a Chatbot + Add Memory</a>
+          <div class="res-desc">The official LangGraph tutorial. Walk through "Build a Basic Chatbot" and "Add Memory to the Chatbot" sections. This is the exact framework used for enterprise agentic workflows.</div>
+          <div class="res-foot"><span class="res-time">~4 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://langchain-ai.github.io/langgraph/tutorials/introduction/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p3-1')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p3-1')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p3-1')">↩</button></div></div>
+          <div class="res-date" id="date-c-p3-1"></div>
+        </div>
+        <div class="resource-card priority-must" id="res-c-p3-2" data-res="c-p3-2" data-phase="3">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p3-2">⭕ Not Started</span><div class="badges"><span class="badge badge-course">Course</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.deeplearning.ai/short-courses/langchain-for-llm-application-development/" target="_blank" class="res-title">LangChain for LLM Application Development (DeepLearning.ai)</a>
+          <div class="res-desc">Short course (2 to 3 hrs). Covers chains, memory, agents, and retrieval. Each lesson is a pattern you'll use in real HyperAutomation projects. Do all lessons.</div>
+          <div class="res-foot"><span class="res-time">~3 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://www.deeplearning.ai/short-courses/langchain-for-llm-application-development/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p3-2')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p3-2')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p3-2')">↩</button></div></div>
+          <div class="res-date" id="date-c-p3-2"></div>
+        </div>
+        <div class="resource-card priority-must" id="res-c-p3-3" data-res="c-p3-3" data-phase="3">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p3-3">⭕ Not Started</span><div class="badges"><span class="badge badge-course">Course</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.deeplearning.ai/short-courses/building-agentic-rag-with-llamaindex/" target="_blank" class="res-title">Building Agentic RAG with LlamaIndex (DeepLearning.ai)</a>
+          <div class="res-desc">Complements the LangChain course. Covers agentic retrieval, having your agent decide when and how to retrieve info. Core skill for HyperAutomation document processing.</div>
+          <div class="res-foot"><span class="res-time">~2 hrs</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://www.deeplearning.ai/short-courses/building-agentic-rag-with-llamaindex/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p3-3')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p3-3')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p3-3')">↩</button></div></div>
+          <div class="res-date" id="date-c-p3-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 16 of 20</span><span class="step-title">Power Automate: Automate the Boring Corporate Stuff</span></div>
+      <div class="step-chips"><span class="chip">Weeks 17 to 18</span><span class="chip">~4 hrs</span><span class="chip chip-must">🔴 Must</span></div>
+      <div class="step-inst">Power Automate is your Swiss Army knife at Paramount, email routing, approval flows, SharePoint triggers, Teams notifications. You'll hit it in your first month.<br><br>
+        <span class="arrow">→</span> Watch the Microsoft Power Automate crash course first, get the vocabulary (flows, connectors, triggers, actions, conditions).<br>
+        <span class="arrow">→</span> Then do the official Microsoft Learn path. Build at least two flows: one for email → SharePoint, one approval workflow.<br>
+        <span class="arrow">→</span> Power Automate is the "plumbing" layer. Your AI agents will often trigger or get triggered by Power Automate flows.
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-must" id="res-c-p3-4" data-res="c-p3-4" data-phase="3">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p3-4">⭕ Not Started</span><div class="badges"><span class="badge badge-video">Video</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.youtube.com/watch?v=MOFGXcFHE-A" target="_blank" class="res-title">Power Automate Full Course for Beginners (Pragmatic Works)</a>
+          <div class="res-desc">Best free Power Automate crash course. Covers UI, connectors, cloud flows, approval workflows, and SharePoint integration. Exactly what you'll use at Paramount.</div>
+          <div class="res-foot"><span class="res-time">~2 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://www.youtube.com/watch?v=MOFGXcFHE-A" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p3-4')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p3-4')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p3-4')">↩</button></div></div>
+          <div class="res-date" id="date-c-p3-4"></div>
+        </div>
+        <div class="resource-card priority-high" id="res-c-p3-5" data-res="c-p3-5" data-phase="3">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p3-5">⭕ Not Started</span><div class="badges"><span class="badge badge-course">Course</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://learn.microsoft.com/en-us/training/paths/automate-process-power-automate/" target="_blank" class="res-title">Microsoft Learn: Automate a Business Process</a>
+          <div class="res-desc">Official Microsoft learning path. Do 2 to 3 modules that match your work: cloud flows, approvals, or SharePoint triggers. Skip modules that don't apply to your team.</div>
+          <div class="res-foot"><span class="res-time">~2 hrs</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://learn.microsoft.com/en-us/training/paths/automate-process-power-automate/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p3-5')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p3-5')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p3-5')">↩</button></div></div>
+          <div class="res-date" id="date-c-p3-5"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 17 of 20</span><span class="step-title">Docker Fundamentals: Just Enough to Deploy</span></div>
+      <div class="step-chips"><span class="chip">Weeks 19 to 20</span><span class="chip">~4 hrs</span><span class="chip chip-must">🔴 Must</span></div>
+      <div class="step-inst">You don't need to be a Docker expert. You need to understand what a container is, why teams use it, and how to run one without breaking things.<br><br>
+        <span class="arrow">→</span> Watch the Docker crash course to understand the mental model: images, containers, volumes, ports.<br>
+        <span class="arrow">→</span> Then do the official Docker getting-started tutorial. Run a container yourself, that hands-on experience is what sticks.<br>
+        <span class="arrow">→</span> Goal: by the end, you can look at a Dockerfile, understand what it does, and run a containerized app locally.
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-must" id="res-c-p3-6" data-res="c-p3-6" data-phase="3">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p3-6">⭕ Not Started</span><div class="badges"><span class="badge badge-video">Video</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.youtube.com/watch?v=pg19Z8LL06w" target="_blank" class="res-title">Docker Crash Course for Beginners (TechWorld with Nana)</a>
+          <div class="res-desc">The clearest Docker explanation on YouTube. Nana walks you through images, containers, volumes, and networking with real demos. You'll get the mental model instantly.</div>
+          <div class="res-foot"><span class="res-time">~1.5 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://www.youtube.com/watch?v=pg19Z8LL06w" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p3-6')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p3-6')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p3-6')">↩</button></div></div>
+          <div class="res-date" id="date-c-p3-6"></div>
+        </div>
+        <div class="resource-card priority-opt" id="res-c-p3-7" data-res="c-p3-7" data-phase="3">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p3-7">⭕ Not Started</span><div class="badges"><span class="badge badge-tutorial">Tutorial</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://docs.docker.com/get-started/" target="_blank" class="res-title">Docker Official Getting Started Tutorial</a>
+          <div class="res-desc">Official hands-on tutorial. Run a container, build an image, use Docker Compose. Optional but great if you want to go beyond watching and actually touch the keys.</div>
+          <div class="res-foot"><span class="res-time">~2 hrs</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://docs.docker.com/get-started/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p3-7')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p3-7')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p3-7')">↩</button></div></div>
+          <div class="res-date" id="date-c-p3-7"></div>
+        </div>
+      </div>
+    </div>
+    <div class="done-toggle" id="done-toggle-3" onclick="toggleDone(3)" style="display:none">▾ Show 0 completed</div>
+
+  </div><!-- /phase-body -->
+</div><!-- /phase3 -->
+
+<!-- ===== PHASE 4 ===== -->
+<div class="phase-section" id="phase4">
+  <div class="phase-hd ph4" onclick="togglePhase(this)">
+    <div class="phase-icon">🚀</div>
+    <div class="phase-hd-text"><div class="phase-title">Phase 4: Own It: Senior-Ready Skills &amp; Portfolio Polish</div><div class="phase-dates">Aug 18  to  Sep 27 · 6 weeks</div></div>
+    <div class="phase-bar-wrap"><div class="phase-bar"><div class="phase-bar-fill" id="p4-bar"></div></div><div class="phase-bar-lbl" id="p4-label">0/8</div></div>
+    <span class="phase-hd-toggle">▾</span>
+  </div>
+  <div class="phase-body">
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 18 of 20</span><span class="step-title">Advanced Agentic Patterns: Multi-Agent Systems</span></div>
+      <div class="step-chips"><span class="chip">Weeks 21 to 22</span><span class="chip">~5 hrs</span><span class="chip chip-high">🟡 High</span></div>
+      <div class="step-inst">You're now ready for multi-agent orchestration, the direction HyperAutomation is heading. One supervisor agent, many specialized sub-agents, each with different tools and memory.<br><br>
+        <span class="arrow">→</span> Do the "Multi AI Agent Systems with crewAI" short course, the most practical multi-agent course right now.<br>
+        <span class="arrow">→</span> Follow up with the LangGraph "Multi-Agent" tutorial to see the same patterns in LangGraph (which you already know from Phase 3).<br>
+        <span class="arrow">→</span> Bonus: the "AI Agents in LangGraph" course if you want to go deep on tool-calling agents.
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-high" id="res-c-p4-1" data-res="c-p4-1" data-phase="4">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p4-1">⭕ Not Started</span><div class="badges"><span class="badge badge-course">Course</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.deeplearning.ai/short-courses/multi-ai-agent-systems-with-crewai/" target="_blank" class="res-title">Multi AI Agent Systems with crewAI (DeepLearning.ai)</a>
+          <div class="res-desc">Best practical multi-agent course available. Role-based agents, task delegation, tool sharing, and multi-agent pipelines. Directly maps to enterprise HyperAutomation architectures.</div>
+          <div class="res-foot"><span class="res-time">~3 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://www.deeplearning.ai/short-courses/multi-ai-agent-systems-with-crewai/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p4-1')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p4-1')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p4-1')">↩</button></div></div>
+          <div class="res-date" id="date-c-p4-1"></div>
+        </div>
+        <div class="resource-card priority-high" id="res-c-p4-2" data-res="c-p4-2" data-phase="4">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p4-2">⭕ Not Started</span><div class="badges"><span class="badge badge-tutorial">Tutorial</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://langchain-ai.github.io/langgraph/tutorials/multi_agent/multi-agent-collaboration/" target="_blank" class="res-title">LangGraph Multi-Agent Collaboration Tutorial</a>
+          <div class="res-desc">Official LangGraph tutorial for multi-agent systems. Covers agent networks, supervisor patterns, and agent communication. Builds directly on your Phase 3 LangGraph foundations.</div>
+          <div class="res-foot"><span class="res-time">~2 hrs</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://langchain-ai.github.io/langgraph/tutorials/multi_agent/multi-agent-collaboration/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p4-2')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p4-2')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p4-2')">↩</button></div></div>
+          <div class="res-date" id="date-c-p4-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 19 of 20</span><span class="step-title">System Design for AI: Talk Like a Senior Engineer</span></div>
+      <div class="step-chips"><span class="chip">Weeks 23 to 24</span><span class="chip">~5 hrs</span><span class="chip chip-high">🟡 High</span></div>
+      <div class="step-inst">The technical work is done. Now level up how you think and talk about systems, the skill that gets you a seat at the architecture table.<br><br>
+        <span class="arrow">→</span> Read the ML System Design primer, understand latency vs throughput, horizontal vs vertical scaling, caching strategies.<br>
+        <span class="arrow">→</span> Go through the ML System Design interview patterns, these teach you how senior engineers frame problems.<br>
+        <span class="arrow">→</span> Practice: pick any system you built in Phases 2 to 3 and describe it using this vocabulary.
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-high" id="res-c-p4-3" data-res="c-p4-3" data-phase="4">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p4-3">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Article</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://huyenchip.com/machine-learning-systems-design/toc.html" target="_blank" class="res-title">ML Systems Design by Chip Huyen (Free)</a>
+          <div class="res-desc">Read chapters 1 to 4. Covers problem framing, data pipeline design, model deployment, and monitoring. Written by a Stanford AI professor, extremely practical and well-regarded in industry.</div>
+          <div class="res-foot"><span class="res-time">~3 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://huyenchip.com/machine-learning-systems-design/toc.html" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p4-3')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p4-3')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p4-3')">↩</button></div></div>
+          <div class="res-date" id="date-c-p4-3"></div>
+        </div>
+        <div class="resource-card priority-high" id="res-c-p4-4" data-res="c-p4-4" data-phase="4">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p4-4">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Article</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.evidentlyai.com/ml-system-design" target="_blank" class="res-title">ML System Design Interview Guide (Evidently AI)</a>
+          <div class="res-desc">Practical guide to thinking through AI system design end-to-end. Great mental frameworks even if you're not interviewing, use this vocabulary in your next sprint planning meeting.</div>
+          <div class="res-foot"><span class="res-time">~2 hrs</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://www.evidentlyai.com/ml-system-design" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p4-4')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p4-4')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p4-4')">↩</button></div></div>
+          <div class="res-date" id="date-c-p4-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd"><span class="step-num">Step 20 of 20</span><span class="step-title">Portfolio &amp; Presence: Make Your Work Visible</span></div>
+      <div class="step-chips"><span class="chip">Weeks 25 to 26</span><span class="chip">~6 hrs</span><span class="chip chip-high">🟡 High</span></div>
+      <div class="step-inst">Six months in, you have real projects. Now make them visible. A GitHub README that explains your work well is worth more than 10 projects nobody can find.<br><br>
+        <span class="arrow">→</span> Write a good README for your best 2 to 3 projects. Use the guide below.<br>
+        <span class="arrow">→</span> Update your LinkedIn with specific accomplishments from Phases 1 to 4. "Built an agentic RAG pipeline" beats "worked on AI projects."<br>
+        <span class="arrow">→</span> Optional: publish one short writeup on Medium or Substack about something you learned. This compounds over time.
+      </div>
+      <div class="res-grid">
+        <div class="resource-card priority-high" id="res-c-p4-5" data-res="c-p4-5" data-phase="4">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p4-5">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Article</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/" target="_blank" class="res-title">How to Write a Good README (freeCodeCamp)</a>
+          <div class="res-desc">Practical guide with templates and examples. Make your GitHub projects readable and impressive. Takes 20 minutes to read, saves hours of confusion for anyone looking at your work.</div>
+          <div class="res-foot"><span class="res-time">20 min</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p4-5')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p4-5')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p4-5')">↩</button></div></div>
+          <div class="res-date" id="date-c-p4-5"></div>
+        </div>
+        <div class="resource-card priority-high" id="res-c-p4-6" data-res="c-p4-6" data-phase="4">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p4-6">⭕ Not Started</span><div class="badges"><span class="badge badge-article">Article</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.linkedin.com/pulse/how-update-your-linkedin-profile-after-getting-new-job-katie-clancy/" target="_blank" class="res-title">How to Update Your LinkedIn After Getting a New Job</a>
+          <div class="res-desc">Practical guide for making your LinkedIn reflect your new role and skills. Craft specific accomplishment bullets rather than vague job descriptions, future you will thank you.</div>
+          <div class="res-foot"><span class="res-time">20 min</span><span class="res-stars">★★★</span><div class="res-actions"><a href="https://www.linkedin.com/pulse/how-update-your-linkedin-profile-after-getting-new-job-katie-clancy/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p4-6')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p4-6')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p4-6')">↩</button></div></div>
+          <div class="res-date" id="date-c-p4-6"></div>
+        </div>
+        <div class="resource-card priority-opt" id="res-c-p4-7" data-res="c-p4-7" data-phase="4">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p4-7">⭕ Not Started</span><div class="badges"><span class="badge badge-tutorial">Tutorial</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://medium.com/about" target="_blank" class="res-title">Publish Your First Technical Blog Post, Medium</a>
+          <div class="res-desc">Optional but powerful. Write one short post about something you built or learned. Even 500 words. Writing clarifies your thinking and builds a public track record.</div>
+          <div class="res-foot"><span class="res-time">~2 hrs</span><span class="res-stars">★★★★</span><div class="res-actions"><a href="https://medium.com/about" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p4-7')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p4-7')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p4-7')">↩</button></div></div>
+          <div class="res-date" id="date-c-p4-7"></div>
+        </div>
+        <div class="resource-card priority-opt" id="res-c-p4-8" data-res="c-p4-8" data-phase="4">
+          <div class="res-top"><span class="res-pill pill-ns" id="pill-c-p4-8">⭕ Not Started</span><div class="badges"><span class="badge badge-course">Course</span><span class="badge badge-free">Free</span></div></div>
+          <a href="https://www.deeplearning.ai/short-courses/ai-agents-in-langgraph/" target="_blank" class="res-title">AI Agents in LangGraph (DeepLearning.ai)</a>
+          <div class="res-desc">Optional deep-dive. Goes further than the Phase 3 tutorial, covers persistence, streaming, and human-in-the-loop for production agents. Do this if you want to specialize in LangGraph.</div>
+          <div class="res-foot"><span class="res-time">~2 hrs</span><span class="res-stars">★★★★★</span><div class="res-actions"><a href="https://www.deeplearning.ai/short-courses/ai-agents-in-langgraph/" target="_blank" class="btn-open">🔗 Open</a><button class="btn-start" onclick="startRes('c-p4-8')">▶ Start</button><button class="btn-finish" onclick="doneRes('c-p4-8')">✓ Done!</button><button class="btn-undo" onclick="undoRes('c-p4-8')">↩</button></div></div>
+          <div class="res-date" id="date-c-p4-8"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily rhythm grid -->
+    <div class="rhythm-box">
+      <div class="rhythm-title">🗓️ Your Ideal Weekly Rhythm</div>
+      <div class="rhythm-grid">
+        <div class="rhythm-row"><span class="rhythm-day">Mon/Wed</span><span class="rhythm-task">New resource, video/course/article (60 to 90 min)</span></div>
+        <div class="rhythm-row"><span class="rhythm-day">Tue/Thu</span><span class="rhythm-task">Hands-on coding or project work (60 min)</span></div>
+        <div class="rhythm-row"><span class="rhythm-day">Friday</span><span class="rhythm-task">Review + document what you built (30 min)</span></div>
+        <div class="rhythm-row"><span class="rhythm-day">Weekend</span><span class="rhythm-task">Catch-up or explore something fun (optional)</span></div>
+      </div>
+    </div>
+
+    <div class="done-toggle" id="done-toggle-4" onclick="toggleDone(4)" style="display:none">▾ Show 0 completed</div>
+
+  </div><!-- /phase-body -->
+</div><!-- /phase4 -->
+
+<!-- ===== PLAYGROUND ===== -->
+<div class="playground-box">
+  <div class="playground-title">🛝 Your Coding Playground</div>
+  <div class="playground-sub">Bookmark these. Zero install. Open and code in seconds.</div>
+  <div class="playground-grid">
+    <a href="https://colab.research.google.com" target="_blank" class="play-card">
+      <span class="play-icon">🟡</span>
+      <div class="play-name">Google Colab</div>
+      <div class="play-desc">Free Python notebooks in your browser. GPU included. Where 90% of ML experimentation happens.</div>
+    </a>
+    <a href="https://replit.com" target="_blank" class="play-card">
+      <span class="play-icon">🔵</span>
+      <div class="play-name">Replit</div>
+      <div class="play-desc">Full IDE in the browser. Good for Flask apps, quick scripts, and shareable demos.</div>
+    </a>
+    <a href="https://github.dev" target="_blank" class="play-card">
+      <span class="play-icon">⚫</span>
+      <div class="play-name">GitHub Codespaces</div>
+      <div class="play-desc">VS Code in your browser. Open any GitHub repo and start coding instantly. Press "." on any repo.</div>
+    </a>
+    <a href="https://www.kaggle.com/code" target="_blank" class="play-card">
+      <span class="play-icon">📊</span>
+      <div class="play-name">Kaggle Notebooks</div>
+      <div class="play-desc">Free Python notebooks with datasets. Great for data science practice and ML experiments.</div>
+    </a>
+    <a href="https://sqliteonline.com" target="_blank" class="play-card">
+      <span class="play-icon">🗄️</span>
+      <div class="play-name">SQLite Online</div>
+      <div class="play-desc">Run SQL in your browser. Great for practicing database queries without any setup.</div>
+    </a>
+  </div>
+</div>
+
+</div><!-- /container -->
+</div><!-- /tab-learn -->
+
+<!-- ===== JARGON TAB ===== -->
+<div class="tab-view" id="tab-jargon">
+  <div class="container">
+    <div class="jargon-header">
+      <h2 class="jargon-title">🔤 Jargon Cheat Sheet</h2>
+      <p class="jargon-sub">50 terms you'll hear constantly at Paramount. Learn 5 a day, impress everyone.</p>
+      <div class="jargon-controls">
+        <input type="text" id="jargon-search" placeholder="🔍 Search terms..." oninput="filterJargon()" class="jargon-search-input">
+        <div class="jargon-cats">
+          <button class="jcat-btn active" onclick="setJargonCat('all',this)">All</button>
+          <button class="jcat-btn" onclick="setJargonCat('ai',this)">🤖 AI/ML</button>
+          <button class="jcat-btn" onclick="setJargonCat('corporate',this)">🏢 Corporate</button>
+          <button class="jcat-btn" onclick="setJargonCat('tech',this)">💻 Tech</button>
+        </div>
+      </div>
+    </div>
+    <div class="jargon-grid" id="jargon-grid">
+
+      <!-- AI/ML Terms -->
+      <div class="jterm" data-cat="ai"><div class="jterm-word">LLM</div><div class="jterm-def">Large Language Model, the brain behind ChatGPT, Claude, etc. Trained on massive text data to predict and generate language.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">RAG</div><div class="jterm-def">Retrieval-Augmented Generation, instead of relying purely on training data, the model looks up fresh info from a database before answering. Like open-book vs closed-book exam.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">Embedding</div><div class="jterm-def">A list of numbers (vector) that represents the meaning of text. Similar meanings = similar vectors. Powers semantic search and RAG retrieval.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">Vector Database</div><div class="jterm-def">A database optimized for storing and searching embeddings. Examples: Pinecone, Chroma, Weaviate. The storage layer under every RAG system.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">Prompt Engineering</div><div class="jterm-def">The craft of writing instructions that get an LLM to do exactly what you want. More important than it sounds, bad prompts get bad outputs.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">Fine-tuning</div><div class="jterm-def">Further training a pretrained model on your specific data to make it better at your specific task. More expensive than prompting but more precise.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">Agent</div><div class="jterm-def">An LLM that can take actions, call APIs, run code, search the web, use tools, not just generate text. The "doing" version of a chatbot.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">Tool Calling</div><div class="jterm-def">When an LLM decides to use an external function (a "tool") to get info or take action. The mechanism that makes agents actually useful.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">Context Window</div><div class="jterm-def">How much text an LLM can "see" at once. GPT-4 has ~128k tokens; Claude has ~200k. If your document is too long, it gets cut off.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">Hallucination</div><div class="jterm-def">When an LLM confidently makes up facts that aren't true. Not a bug, it's how they work. RAG and grounding help reduce it.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">Temperature</div><div class="jterm-def">A number (0 to 2) controlling how random the LLM's output is. Low = deterministic and focused. High = creative and unpredictable.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">Token</div><div class="jterm-def">The unit LLMs think in. Roughly 0.75 words. "hamburger" = 1 token, "antidisestablishmentarianism" = ~4 tokens. LLM costs are per-token.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">Inference</div><div class="jterm-def">Running a trained model to get predictions. "Inference time" = when the model is actually working for you. Opposite of training.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">Semantic Search</div><div class="jterm-def">Search that understands meaning rather than matching exact words. "puppy" matches "dog" results because they're semantically close.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">Guardrails</div><div class="jterm-def">Rules or filters that constrain what an AI agent can say or do. Prevents hallucinations, off-topic responses, or dangerous outputs.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">Grounding</div><div class="jterm-def">Connecting an LLM's responses to real, verifiable sources (documents, databases). Reduces hallucination and increases trustworthiness.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">Human-in-the-Loop</div><div class="jterm-def">AI workflows with a human checkpoint before critical decisions or actions. A safety pattern for high-stakes automation.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">OCR</div><div class="jterm-def">Optical Character Recognition, extracting text from images or scanned PDFs. Step 1 of almost every document processing pipeline.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">NLP</div><div class="jterm-def">Natural Language Processing, the broader field of making computers understand and generate human language. LLMs are the current state-of-the-art in NLP.</div></div>
+      <div class="jterm" data-cat="ai"><div class="jterm-word">Multimodal</div><div class="jterm-def">AI that can handle multiple types of input, text, images, audio, video. GPT-4V and Claude are multimodal models.</div></div>
+
+      <!-- Corporate Terms -->
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">HyperAutomation</div><div class="jterm-def">Gartner's term for combining multiple automation technologies (RPA, AI, APIs, BPM) to automate as many business processes as possible end-to-end.</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">RPA</div><div class="jterm-def">Robotic Process Automation, software bots that mimic human actions in UIs (clicking, typing, copy-paste). Think: the older, non-AI sibling of AI agents.</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">Systems Integration</div><div class="jterm-def">Connecting separate software systems (HR, Finance, CRM, etc.) so they share data and work together. Your actual job title's core meaning.</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">Stakeholder</div><div class="jterm-def">Anyone with a stake in the project's outcome, business users, managers, executives. Managing their expectations is half the job.</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">Sprint</div><div class="jterm-def">A fixed period (usually 2 weeks) in Agile development where the team commits to completing specific work. Stand-ups happen daily during sprints.</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">Scrum</div><div class="jterm-def">An Agile framework with defined roles (Scrum Master, Product Owner, Dev Team), ceremonies (sprint planning, retrospective), and artifacts (backlog, burn-down chart).</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">Backlog</div><div class="jterm-def">The prioritized list of all work items (features, bugs, tasks) for a project. "In the backlog" = acknowledged but not yet scheduled.</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">POC / Proof of Concept</div><div class="jterm-def">A small, quick experiment to prove that an idea works before committing to a full build. You'll build a lot of these at Paramount.</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">MVP</div><div class="jterm-def">Minimum Viable Product, the simplest version that delivers value. "What's the MVP?" = what's the smallest thing we can ship and still be useful?</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">KPI</div><div class="jterm-def">Key Performance Indicator, a measurable metric that shows whether you're achieving goals. "What's the KPI?" = how will we know if this worked?</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">ROI</div><div class="jterm-def">Return on Investment, did the benefit outweigh the cost? Every automation project at a company needs a clear ROI story to get approved.</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">SLA</div><div class="jterm-def">Service Level Agreement, a contract defining expected response times, uptime, or quality. "What's the SLA?" = what are we promising and to whom?</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">Use Case</div><div class="jterm-def">A specific scenario of how a system will be used. "The use case is..." = here's the exact problem we're solving, for this person, in this situation.</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">Change Management</div><div class="jterm-def">The process of helping people adapt to new systems or workflows. Often the hardest part of automation, the tech is easy, humans are hard.</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">Governance</div><div class="jterm-def">Rules, policies, and oversight structures for how systems or data are used. "AI Governance" = who decides what AI can/can't do in the company.</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">Sign-off</div><div class="jterm-def">Formal approval from a stakeholder or manager that work is complete and acceptable. You need sign-off before most things go to production.</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">Bandwidth</div><div class="jterm-def">Corporate-speak for available time and capacity. "I don't have the bandwidth" = I'm too busy. "Do you have bandwidth for this?" = are you free?</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">Leverage</div><div class="jterm-def">Using existing resources, relationships, or tools to do more with less. "We can leverage our existing API" = we already have this, let's use it.</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">Sync</div><div class="jterm-def">A meeting, usually short and informal. "Can we sync?" = can we meet/talk? "Let's sync on this" = let's align our understanding.</div></div>
+      <div class="jterm" data-cat="corporate"><div class="jterm-word">Action Item</div><div class="jterm-def">A specific task assigned to a specific person with a due date that comes out of a meeting. "You're the action item owner on this."</div></div>
+
+      <!-- Tech Terms -->
+      <div class="jterm" data-cat="tech"><div class="jterm-word">API</div><div class="jterm-def">Application Programming Interface, a defined way for software to talk to other software. "We'll call their API" = we'll send requests to their system and get data back.</div></div>
+      <div class="jterm" data-cat="tech"><div class="jterm-word">REST API</div><div class="jterm-def">The most common type of API. Uses HTTP verbs (GET, POST, PUT, DELETE) and returns JSON. Almost every modern service has a REST API.</div></div>
+      <div class="jterm" data-cat="tech"><div class="jterm-word">URL vs URI</div><div class="jterm-def">URL (Uniform Resource Locator) is the full web address with protocol (https://...). URI (Uniform Resource Identifier) is the broader concept, every URL is a URI, but not vice versa.</div></div>
+      <div class="jterm" data-cat="tech"><div class="jterm-word">JSON</div><div class="jterm-def">JavaScript Object Notation, the universal language for sending data between systems. Key-value pairs in { } curly braces. You'll read and write JSON constantly.</div></div>
+      <div class="jterm" data-cat="tech"><div class="jterm-word">SDK</div><div class="jterm-def">Software Development Kit, a pre-built library that makes it easier to use an API or platform. "Use the OpenAI SDK" = use their Python library instead of raw HTTP calls.</div></div>
+      <div class="jterm" data-cat="tech"><div class="jterm-word">Webhook</div><div class="jterm-def">A "reverse API", instead of you asking for data, the other system pushes data to you automatically when something happens. Events trigger webhooks.</div></div>
+      <div class="jterm" data-cat="tech"><div class="jterm-word">Endpoint</div><div class="jterm-def">A specific URL that an API exposes for a specific action. "The /users endpoint" = the URL you call to get user data from that API.</div></div>
+      <div class="jterm" data-cat="tech"><div class="jterm-word">Container / Docker</div><div class="jterm-def">A lightweight, portable package that includes your app and everything it needs to run, so it works the same on any machine. Docker is the standard tool.</div></div>
+      <div class="jterm" data-cat="tech"><div class="jterm-word">Git / Version Control</div><div class="jterm-def">A system that tracks every change to code over time. Git is the tool; GitHub/GitLab are hosting platforms. "Push to git" = save your code to the shared repo.</div></div>
+      <div class="jterm" data-cat="tech"><div class="jterm-word">CI/CD</div><div class="jterm-def">Continuous Integration / Continuous Deployment, automated pipelines that test and deploy code every time someone pushes a change. The assembly line for software.</div></div>
+
+    </div><!-- /jargon-grid -->
+    <div class="jargon-empty" id="jargon-empty" style="display:none">No terms match your search. Try different keywords!</div>
+  </div>
+</div><!-- /tab-jargon -->
+
+<!-- ===== TIPS TAB ===== -->
+<div class="tab-view" id="tab-tips">
+  <div class="container">
+    <div class="tips-header">
+      <h2 class="tips-title">💌 Tej's Tips</h2>
+      <p class="tips-sub">Personal notes from me to you. Read these when you're feeling lost or overwhelmed.</p>
+    </div>
+    <div class="tips-grid">
+
+      <div class="tip-card">
+        <div class="tip-num">01</div>
+        <div class="tip-content">
+          <div class="tip-heading">You don't need to understand everything before you start.</div>
+          <div class="tip-body">The biggest trap in learning technical stuff is waiting until you "really get it" before trying. You won't really get it until you try. Start things before you feel ready. The confusion is the learning, not a sign you're doing it wrong.</div>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-num">02</div>
+        <div class="tip-content">
+          <div class="tip-heading">Ask questions loudly and early.</div>
+          <div class="tip-body">In corporate environments, people who ask good questions are seen as curious and engaged, not dumb. The person who sits quietly for three months pretending they understand everything is the one who struggles. Ask your manager, ask your team, ask in Slack. Every question you ask now saves you ten hours of confusion later.</div>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-num">03</div>
+        <div class="tip-content">
+          <div class="tip-heading">Build something every week. Even something tiny.</div>
+          <div class="tip-body">Reading and watching is passive. Building is active. Even if it's a 20-line script that prints "hello world" after doing something mildly useful, build it. Your brain remembers things you made. Use the Playground section on this site. Run code in Colab. Break things and fix them. That's where the real learning happens.</div>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-num">04</div>
+        <div class="tip-content">
+          <div class="tip-heading">Your non-technical background is a superpower, not a weakness.</div>
+          <div class="tip-body">Most engineers are terrible at explaining what they built to business people. You can do both sides. You understand what stakeholders actually want. You can translate between "the system needs a RAG pipeline with a 512-token chunk size" and "we need the chatbot to answer questions from our policy documents." That skill is genuinely rare. Use it.</div>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-num">05</div>
+        <div class="tip-content">
+          <div class="tip-heading">Don't compare your progress to others. Compare to yourself from last week.</div>
+          <div class="tip-body">You'll meet people who've been coding for 10 years. You'll see GitHub profiles with hundreds of projects. That's noise. The only comparison that matters: are you better than you were last week? Keep a small log, even just a few sentences, of what you learned each week. Reading it back after a month is genuinely motivating.</div>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <div class="tip-num">06</div>
+        <div class="tip-content">
+          <div class="tip-heading">This plan is a guide, not a prison.</div>
+          <div class="tip-body">If something on the plan is boring you, skip it or skim it. If something not on the plan is fascinating you, go deep. Curiosity is the engine. The plan exists to give you direction and confidence that you're covering the right things, not to be a rigid schedule. And if you fall behind? Just pick back up. No guilt. Starting over is always an option.</div>
+        </div>
+      </div>
+
+    </div><!-- /tips-grid -->
+
+    <div class="tej-note">
+      <div class="tej-note-inner">
+        <div class="tej-note-emoji">💜</div>
+        <div class="tej-note-text">
+          <strong>A note from Tej:</strong><br>
+          I built this whole thing because I genuinely believe you're going to be excellent at this. You have the hardest skill already, you work hard and you care. Everything else is just information, and information is learnable. Six months from now, you're going to look back at this plan and realize you knew none of this when you started, and then you'll realize how far you've come. That moment is going to feel incredible. I'll be rooting for you the whole way.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /tab-tips -->
+
+</div><!-- /app -->
+
+<script>
+// ============================================================
+// CONFIG
+// ============================================================
+const AUTH_KEY   = 'yashu_auth_v1';
+const PROG_KEY   = 'yashu_progress_v3';
+const THEME_KEY  = 'yashu_theme';
+const CEL_KEY    = 'yashu_celebrated';
+const PLAN_START = new Date('2026-04-06');
+const PLAN_END   = new Date('2026-09-27');
+const TOTAL_RES  = 50; // 53 minus 3 optional reference books
+const TOTAL_DAYS = 174;
+
+const PHASE_IDS = [
+  ['c-p0-1','c-p0-2','c-p0-3','c-p0-4','c-p0-5','c-p0-6','c-p0-7','c-p0-8','c-p0-9'],
+  ['c-p1-1','c-p1-2','c-p1-3','c-p1-4','c-p1-5','c-p1-6','c-p1-7','c-p1-8','c-p1-9','c-p1-10','c-p1-11','c-p1-12','c-p1-13','c-p1-14','c-p1-15'],
+  ['c-p2-1','c-p2-2','c-p2-3','c-p2-4','c-p2-5','c-p2-6','c-p2-7','c-p2-8','c-p2-9','c-p2-10','c-p2-11','c-p2-12','c-p2-13','c-p2-14'],
+  ['c-p3-1','c-p3-2','c-p3-3','c-p3-4','c-p3-5','c-p3-6','c-p3-7'],
+  ['c-p4-1','c-p4-2','c-p4-3','c-p4-4','c-p4-5','c-p4-6','c-p4-7','c-p4-8']
+];
+
+const PHASE_NAMES = ['Phase 0, Pre-boarding','Phase 1, Foundations','Phase 2, AI Stack','Phase 3, Ship It','Phase 4, Own It'];
+const PHASE_EMOJIS = ['\ud83c\udf38','\ud83d\udfe2','\ud83d\udfe3','\ud83d\udd35','\ud83d\udfe1'];
+const REF_ONLY = new Set(['c-p1-1','c-p1-4','c-p1-6']); // Books: optional references, not tracked
+const ALL_IDS = PHASE_IDS.flat();
+const TRACKED_IDS = ALL_IDS.filter(id => !REF_ONLY.has(id));
+const TOTAL_TRACKED = TRACKED_IDS.length; // 50 trackable resources
+
+// ============================================================
+// TOAST
+// ============================================================
+let toastTimer = null;
+function showToast(msg, duration) {
+  duration = duration || 3000;
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), duration);
+}
+
+// ============================================================
+// AUTH
+// ============================================================
+function doLogin() {
+  const val = document.getElementById('pw-input').value;
+  if (val === atob('eWFzaHUyMDI2')) {
+    localStorage.setItem(AUTH_KEY, '1');
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    initApp();
+  } else {
+    const err = document.getElementById('login-err');
+    err.textContent = 'Wrong password! Try again \ud83d\udc95';
+    err.style.display = 'block';
+    document.getElementById('pw-input').value = '';
+  }
+}
+
+function togglePw() {
+  const inp = document.getElementById('pw-input');
+  const eye = document.getElementById('pw-eye');
+  if (inp.type === 'password') { inp.type = 'text'; eye.textContent = '\ud83d\ude48'; }
+  else { inp.type = 'password'; eye.textContent = '\ud83d\udc41'; }
+}
+
+function doLogout() {
+  localStorage.removeItem(AUTH_KEY);
+  location.reload();
+}
+
+// ============================================================
+// THEME
+// ============================================================
+function toggleTheme() {
+  const isDark = document.body.classList.toggle('dark');
+  localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+  document.getElementById('theme-btn').textContent = isDark ? '\u2600\ufe0f' : '\ud83c\udf19';
+}
+
+// ============================================================
+// TABS
+// ============================================================
+function showTab(name) {
+  document.querySelectorAll('.tab-view').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.main-tab-btn').forEach(b => b.classList.remove('active'));
+  const tabEl = document.getElementById('tab-' + name);
+  if (tabEl) tabEl.classList.add('active');
+  const btn = document.getElementById('tab-btn-' + name);
+  if (btn) btn.classList.add('active');
+}
+
+// ============================================================
+// PROGRESS STATE
+// ============================================================
+let progress = {};
+
+function saveProgress() {
+  localStorage.setItem(PROG_KEY, JSON.stringify(progress));
+}
+
+function loadProgress() {
+  const raw = localStorage.getItem(PROG_KEY);
+  if (raw) {
+    try { progress = JSON.parse(raw); } catch(e) { progress = {}; }
+  }
+  ALL_IDS.forEach(id => {
+    if (progress[id]) applyStateToDom(id, progress[id]);
+    else applyStateToDom(id, {state:'not-started'});
+  });
+}
+
+function applyStateToDom(id, data) {
+  const pill = document.getElementById('pill-' + id);
+  const card = document.getElementById('res-' + id);
+  const dateEl = document.getElementById('date-' + id);
+  if (!pill || !card) return;
+
+  card.classList.remove('state-ns','state-ip','state-done');
+
+  if (data.state === 'in-progress') {
+    pill.className = 'res-pill pill-ip';
+    pill.textContent = '\u25b6 In Progress';
+    card.classList.add('state-ip');
+    if (dateEl && data.startedAt) {
+      dateEl.textContent = 'Started: ' + new Date(data.startedAt).toLocaleDateString();
+    }
+  } else if (data.state === 'done') {
+    pill.className = 'res-pill pill-done';
+    pill.textContent = '\u2705 Done!';
+    card.classList.add('state-done');
+    if (dateEl && data.doneAt) {
+      dateEl.textContent = 'Completed: ' + new Date(data.doneAt).toLocaleDateString();
+    }
+  } else {
+    pill.className = 'res-pill pill-ns';
+    pill.textContent = '\u2b55 Not Started';
+    card.classList.add('state-ns');
+    if (dateEl) dateEl.textContent = '';
+  }
+}
+
+// ============================================================
+// GET CURRENT IN-PROGRESS ID
+// ============================================================
+function getCurrentIP() {
+  for (const id of TRACKED_IDS) {
+    if ((progress[id] || {}).state === 'in-progress') return id;
+  }
+  return null;
+}
+
+// ============================================================
+// RESOURCE ACTIONS
+// ============================================================
+function startRes(id) {
+  if (progress[id] && progress[id].state === 'done') return;
+  if (progress[id] && progress[id].state === 'in-progress') return;
+
+  // Single in-progress enforcement
+  const currentIP = getCurrentIP();
+  if (currentIP && currentIP !== id) {
+    const card = document.getElementById('res-' + currentIP);
+    const title = card ? (card.querySelector('.res-title') || {}).textContent : currentIP;
+    showToast('\u23f3 Please finish "' + title + '" first, or click \u21a9 to reset it!', 4000);
+    // Scroll to the in-progress card
+    const ipCard = document.getElementById('res-' + currentIP);
+    if (ipCard) ipCard.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  progress[id] = { state: 'in-progress', startedAt: new Date().toISOString(), doneAt: null };
+  saveProgress();
+  applyStateToDom(id, progress[id]);
+  updateAllProgress();
+  updateDashboard();
+  autoCollapseDone();
+}
+
+function doneRes(id) {
+  const prev = progress[id] || {};
+  progress[id] = {
+    state: 'done',
+    startedAt: prev.startedAt || new Date().toISOString(),
+    doneAt: new Date().toISOString()
+  };
+  saveProgress();
+  applyStateToDom(id, progress[id]);
+  launchFloatEmoji('\ud83c\udf89', id);
+  showToast('\u2728 One down! You\'re amazing!', 2000);
+  updateAllProgress();
+  updateDashboard();
+  setTimeout(() => {
+    autoCollapseDone();
+    checkPhaseCelebrations();
+    checkUltimateCompletion();
+    scrollToCurrent();
+  }, 600);
+}
+
+function undoRes(id) {
+  progress[id] = { state: 'not-started', startedAt: null, doneAt: null };
+  saveProgress();
+  applyStateToDom(id, progress[id]);
+  updateAllProgress();
+  updateDashboard();
+  autoCollapseDone();
+}
+
+// ============================================================
+// PROGRESS CALCULATIONS
+// ============================================================
+function updateAllProgress() {
+  let totalDone = 0;
+
+  for (let p = 0; p < 5; p++) {
+    const ids = PHASE_IDS[p];
+    const tracked = ids.filter(id => !REF_ONLY.has(id));
+    let done = 0;
+    tracked.forEach(id => {
+      if ((progress[id] || {}).state === 'done') done++;
+    });
+    totalDone += done;
+
+    const mfill = document.getElementById('p' + p + '-mfill');
+    const mpct  = document.getElementById('p' + p + '-mpct');
+    const pbar  = document.getElementById('p' + p + '-bar');
+    const plbl  = document.getElementById('p' + p + '-label');
+    const pct = tracked.length > 0 ? Math.round((done / tracked.length) * 100) : 0;
+    if (mfill) mfill.style.width = pct + '%';
+    if (mpct)  mpct.textContent  = done + '/' + tracked.length;
+    if (pbar)  pbar.style.width = pct + '%';
+    if (plbl)  plbl.textContent = done + '/' + tracked.length;
+
+    updateDoneToggle(p, done);
+  }
+
+  const pct = Math.round((totalDone / TOTAL_RES) * 100);
+  const bigFill = document.getElementById('big-fill');
+  const navFill = document.getElementById('nav-fill');
+  if (bigFill) bigFill.style.width = pct + '%';
+  if (navFill) navFill.style.width = pct + '%';
+  const countEl = document.getElementById('overall-count');
+  const pctEl   = document.getElementById('overall-pct');
+  const navPct  = document.getElementById('nav-pct');
+  if (countEl) countEl.textContent = totalDone + ' of ' + TOTAL_RES + ' resources completed';
+  if (pctEl)   pctEl.textContent   = pct + '%';
+  if (navPct)  navPct.textContent  = pct + '%';
+}
+
+function updateDoneToggle(phaseIdx, doneCount) {
+  const toggle = document.getElementById('done-toggle-' + phaseIdx);
+  if (!toggle) return;
+  if (doneCount === 0) {
+    toggle.style.display = 'none';
+  } else {
+    toggle.style.display = 'block';
+    toggle.dataset.hiding = 'true';
+    toggle.textContent = '\u25be Show ' + doneCount + ' completed';
+  }
+}
+
+// ============================================================
+// AUTO-COLLAPSE DONE TASKS
+// ============================================================
+function autoCollapseDone() {
+  for (let p = 0; p < 5; p++) {
+    const ids = PHASE_IDS[p];
+    let doneCount = 0;
+    ids.forEach(id => {
+      const card = document.getElementById('res-' + id);
+      if (!card) return;
+      const s = (progress[id] || {}).state;
+      if (s === 'done') {
+        card.style.display = 'none';
+        doneCount++;
+      } else {
+        card.style.display = '';
+      }
+    });
+    const toggle = document.getElementById('done-toggle-' + p);
+    if (!toggle) continue;
+    if (doneCount === 0) {
+      toggle.style.display = 'none';
+    } else {
+      toggle.style.display = 'block';
+      toggle.dataset.hiding = 'true';
+      toggle.textContent = '\u25be Show ' + doneCount + ' completed';
+    }
+  }
+}
+
+// ============================================================
+// DONE TOGGLE (show/hide completed cards per phase)
+// ============================================================
+function toggleDone(phaseIdx) {
+  const toggle = document.getElementById('done-toggle-' + phaseIdx);
+  const ids = PHASE_IDS[phaseIdx];
+  const isHiding = toggle.dataset.hiding === 'true';
+
+  if (isHiding) {
+    // Show them
+    ids.forEach(id => {
+      const card = document.getElementById('res-' + id);
+      if (card) card.style.display = '';
+    });
+    toggle.dataset.hiding = 'false';
+    const doneCount = ids.filter(id => (progress[id] || {}).state === 'done').length;
+    toggle.textContent = '\u25b4 Hide completed';
+  } else {
+    // Hide them
+    ids.forEach(id => {
+      const card = document.getElementById('res-' + id);
+      if (!card) return;
+      if ((progress[id] || {}).state === 'done') card.style.display = 'none';
+    });
+    toggle.dataset.hiding = 'true';
+    const doneCount = ids.filter(id => (progress[id] || {}).state === 'done').length;
+    toggle.textContent = '\u25be Show ' + doneCount + ' completed';
+  }
+}
+
+// ============================================================
+// SCROLL TO CURRENT
+// ============================================================
+function scrollToCurrent() {
+  const ip = getCurrentIP();
+  if (ip) {
+    const card = document.getElementById('res-' + ip);
+    if (card) {
+      card.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+  }
+  // If nothing in-progress, scroll to first not-started
+  for (const id of ALL_IDS) {
+    const s = (progress[id] || {}).state;
+    if (!s || s === 'not-started') {
+      const card = document.getElementById('res-' + id);
+      if (card) { card.scrollIntoView({behavior:'smooth', block:'center'}); return; }
+    }
+  }
+}
+
+// ============================================================
+// PHASE COLLAPSE
+// ============================================================
+function togglePhase(el) {
+  const section = el.closest ? el.closest('.phase-section') : el.parentElement;
+  if (section) section.classList.toggle('collapsed');
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function updateDashboard() {
+  const today = new Date();
+  const daysSinceStart = Math.max(0, Math.floor((today - PLAN_START) / 86400000));
+
+  let totalDone = 0;
+  let inProgressRes = null;
+  let nextNS = null;
+
+  TRACKED_IDS.forEach(id => {
+    const s = (progress[id] || {}).state;
+    if (s === 'done') totalDone++;
+    else if (s === 'in-progress' && !inProgressRes) inProgressRes = id;
+  });
+
+  for (const id of TRACKED_IDS) {
+    const s = (progress[id] || {}).state;
+    if (!s || s === 'not-started') { nextNS = id; break; }
+  }
+
+  const expected = daysSinceStart === 0 ? 0 : Math.round((daysSinceStart / TOTAL_DAYS) * TOTAL_RES);
+  const diff = totalDone - expected;
+  let statusClass, statusText, statusMsg;
+
+  if (daysSinceStart === 0) {
+    statusClass = 'pill-track-on'; statusText = '\u2728 Day 1'; statusMsg = 'Your journey starts today, you got this!';
+  } else if (diff >= 2) {
+    statusClass = 'pill-track-ahead'; statusText = '\ud83d\ude80 Ahead'; statusMsg = 'You\'re ' + diff + ' resources ahead of pace! Keep flying! \ud83c\udf89';
+  } else if (diff <= -3) {
+    statusClass = 'pill-track-behind'; statusText = '\u23f0 Behind'; statusMsg = 'You\'re ' + Math.abs(diff) + ' resources behind pace. No stress, pick one up today! \ud83d\udcaa';
+  } else {
+    statusClass = 'pill-track-on'; statusText = '\u2705 On Track'; statusMsg = 'Right on pace (' + totalDone + '/' + expected + ' expected). Keep your rhythm! \ud83c\udfb5';
+  }
+
+  const pill = document.getElementById('dash-status-pill');
+  const msg  = document.getElementById('dash-status-msg');
+  if (pill) { pill.textContent = statusText; pill.className = 'status-pill ' + statusClass; }
+  if (msg)  msg.textContent = statusMsg;
+
+  const ipEl = document.getElementById('dash-ip');
+  if (ipEl) {
+    if (inProgressRes) {
+      const card = document.getElementById('res-' + inProgressRes);
+      const title = card ? (card.querySelector('.res-title') || {}).textContent || inProgressRes : inProgressRes;
+      ipEl.innerHTML = '<div class="dash-mini"><div class="dash-mini-title">' + title + '</div><div class="dash-mini-sub">\u25b6 Currently working on this</div><div class="dash-mini-actions"><button class="btn-finish" style="display:inline-block" onclick="doneRes(\'' + inProgressRes + '\')">\u2713 Done!</button><button class="btn-undo" style="display:inline-block" onclick="undoRes(\'' + inProgressRes + '\')">\u21a9 Reset</button></div></div>';
+    } else {
+      ipEl.innerHTML = '<div class="dash-empty">Nothing in progress, pick a resource and hit \u25b6 Start!</div>';
+    }
+  }
+
+  const nextEl = document.getElementById('dash-next');
+  if (nextEl) {
+    if (nextNS) {
+      const card = document.getElementById('res-' + nextNS);
+      const title = card ? (card.querySelector('.res-title') || {}).textContent || nextNS : nextNS;
+      nextEl.innerHTML = '<div class="dash-mini"><div class="dash-mini-title">' + title + '</div><div class="dash-mini-sub">\u2b55 Up next in the queue</div><div class="dash-mini-actions"><button class="btn-start" style="display:inline-block" onclick="startRes(\'' + nextNS + '\')">\u25b6 Start</button></div></div>';
+    } else {
+      nextEl.innerHTML = '<div class="dash-empty">All resources started! \ud83c\udf8a</div>';
+    }
+  }
+}
+
+// ============================================================
+// COUNTDOWN (live: days, hours, minutes, seconds)
+// ============================================================
+function updateCountdown() {
+  const now = new Date();
+  const start = new Date('2026-04-13T09:00:00');
+  const diff = start - now;
+  const box = document.getElementById('countdown-box');
+  if (!box) return;
+
+  if (diff > 0) {
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    box.innerHTML = '<div style="font-weight:700;margin-bottom:6px">\u23f3 Countdown to Day 1</div><div class="countdown-live"><div class="cd-unit"><span class="cd-num">' + d + '</span><span class="cd-label">Days</span></div><div class="cd-unit"><span class="cd-num">' + String(h).padStart(2,'0') + '</span><span class="cd-label">Hours</span></div><div class="cd-unit"><span class="cd-num">' + String(m).padStart(2,'0') + '</span><span class="cd-label">Min</span></div><div class="cd-unit"><span class="cd-num">' + String(s).padStart(2,'0') + '</span><span class="cd-label">Sec</span></div></div>';
+  } else if (diff > -86400000) {
+    box.innerHTML = '<div style="font-size:1.3rem;font-weight:900">\ud83c\udf1f TODAY IS THE DAY! You\'re starting your new chapter!</div>';
+  } else {
+    const worked = Math.abs(Math.floor(diff / 86400000));
+    box.innerHTML = '<div class="countdown-live"><div class="cd-unit"><span class="cd-num">' + worked + '</span><span class="cd-label">Days on the job!</span></div></div><div style="margin-top:6px;font-weight:700">\ud83c\udf1f You\'re doing it!</div>';
+  }
+}
+
+// ============================================================
+// ANIMATIONS, LEVEL 1: Float emoji
+// ============================================================
+function launchFloatEmoji(emoji, anchorId) {
+  const card = document.getElementById('res-' + anchorId);
+  const el = document.createElement('div');
+  el.className = 'float-em';
+  el.textContent = emoji;
+  if (card) {
+    const rect = card.getBoundingClientRect();
+    el.style.left = (rect.left + rect.width / 2 - 20) + 'px';
+    el.style.top  = (rect.top + window.scrollY - 10) + 'px';
+  } else {
+    el.style.left = '50%'; el.style.top = '50%';
+  }
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1400);
+}
+
+// ============================================================
+// ANIMATIONS, LEVEL 2: Phase celebration
+// ============================================================
+function checkPhaseCelebrations() {
+  let celebrated = {};
+  try { celebrated = JSON.parse(localStorage.getItem(CEL_KEY) || '{}'); } catch(e) {}
+
+  for (let p = 0; p < 5; p++) {
+    if (celebrated['p' + p]) continue;
+    const ids = PHASE_IDS[p].filter(id => !REF_ONLY.has(id));
+    const allDone = ids.every(id => (progress[id] || {}).state === 'done');
+    if (allDone) {
+      celebrated['p' + p] = true;
+      localStorage.setItem(CEL_KEY, JSON.stringify(celebrated));
+      showPhaseCelebration(p);
+      break;
+    }
+  }
+}
+
+function showPhaseCelebration(phaseIdx) {
+  const emojis = ['\ud83c\udf38','\ud83c\udf3f','\ud83d\udc9c','\u2693','\ud83d\udc51'];
+  const msgs = [
+    'Phase 0 complete! You did the pre-work before Day 1. That\'s incredible initiative! \ud83c\udf89',
+    'Phase 1 complete! Foundations locked in. Python, Git, SQL, APIs, Cloud, all yours now. \ud83c\udf89',
+    'Phase 2 complete! You learned the entire modern AI stack. LLMs, RAG, embeddings, agents. Elite knowledge. \ud83d\udcab',
+    'Phase 3 complete! You shipped real things. LangGraph pipelines, Power Automate flows, Docker containers. \ud83d\ude80',
+    'Phase 4 complete! ALL FIVE PHASES DONE! You are extraordinary. \ud83c\udfc6'
+  ];
+
+  document.getElementById('cel-emoji').textContent = emojis[phaseIdx];
+  document.getElementById('cel-title').textContent = PHASE_NAMES[phaseIdx] + ', Complete!';
+  document.getElementById('cel-msg').textContent = msgs[phaseIdx];
+  document.getElementById('celebration').classList.add('show');
+  launchConfettiMajor();
+}
+
+function closeCelebration() {
+  document.getElementById('celebration').classList.remove('show');
+  stopConfetti();
+}
+
+// ============================================================
+// ANIMATIONS, LEVEL 3: Ultimate celebration
+// ============================================================
+function checkUltimateCompletion() {
+  const allDone = TRACKED_IDS.every(id => (progress[id] || {}).state === 'done');
+  if (!allDone) return;
+  const shown = localStorage.getItem('yashu_ultimate_shown');
+  if (shown) return;
+  localStorage.setItem('yashu_ultimate_shown', '1');
+  setTimeout(showUltimate, 800);
+}
+
+function showUltimate() {
+  document.getElementById('ultimate').classList.add('show');
+  launchConfettiMajor();
+}
+
+// ============================================================
+// CONFETTI ENGINE
+// ============================================================
+let confettiInterval = null;
+const CONFETTI_COLORS = ['#e879a0','#a78bfa','#34d399','#fbbf24','#60a5fa','#f87171','#818cf8'];
+
+function launchConfettiMajor() {
+  const layer = document.getElementById('confetti-layer');
+  if (!layer) return;
+  stopConfetti();
+  confettiInterval = setInterval(() => spawnConfettiBatch(layer), 200);
+  setTimeout(stopConfetti, 6000);
+}
+
+function spawnConfettiBatch(layer) {
+  for (let i = 0; i < 12; i++) {
+    const el = document.createElement('div');
+    el.style.cssText = 'position:fixed;width:' + (6+Math.random()*8) + 'px;height:' + (6+Math.random()*8) + 'px;background:' + CONFETTI_COLORS[Math.floor(Math.random()*CONFETTI_COLORS.length)] + ';border-radius:' + (Math.random()>.5?'50%':'2px') + ';left:' + (Math.random()*100) + '%;top:-10px;opacity:1;z-index:99998;pointer-events:none;animation:confettiFall ' + (1.5+Math.random()*2) + 's linear forwards;transform:rotate(' + (Math.random()*360) + 'deg)';
+    layer.appendChild(el);
+    setTimeout(() => el.remove(), 3500);
+  }
+}
+
+function stopConfetti() {
+  if (confettiInterval) { clearInterval(confettiInterval); confettiInterval = null; }
+}
+
+// Inject confetti keyframes
+const confettiStyle = document.createElement('style');
+confettiStyle.textContent = '@keyframes confettiFall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}';
+document.head.appendChild(confettiStyle);
+
+// ============================================================
+// JARGON FILTER
+// ============================================================
+let currentJargonCat = 'all';
+
+function filterJargon() {
+  const q = (document.getElementById('jargon-search').value || '').toLowerCase();
+  const terms = document.querySelectorAll('.jterm');
+  let visible = 0;
+  terms.forEach(t => {
+    const matchCat = currentJargonCat === 'all' || t.dataset.cat === currentJargonCat;
+    const word = (t.querySelector('.jterm-word') || {}).textContent || '';
+    const def  = (t.querySelector('.jterm-def') || {}).textContent || '';
+    const matchQ = !q || word.toLowerCase().includes(q) || def.toLowerCase().includes(q);
+    t.style.display = (matchCat && matchQ) ? '' : 'none';
+    if (matchCat && matchQ) visible++;
+  });
+  const empty = document.getElementById('jargon-empty');
+  if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+}
+
+function setJargonCat(cat, btn) {
+  currentJargonCat = cat;
+  document.querySelectorAll('.jcat-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  filterJargon();
+}
+
+// ============================================================
+// RESET
+// ============================================================
+function resetAll() {
+  if (!confirm('Reset ALL progress? This cannot be undone.')) return;
+  localStorage.removeItem(PROG_KEY);
+  localStorage.removeItem(CEL_KEY);
+  localStorage.removeItem('yashu_ultimate_shown');
+  progress = {};
+  ALL_IDS.forEach(id => applyStateToDom(id, {state:'not-started'}));
+  document.querySelectorAll('.resource-card').forEach(c => c.style.display = '');
+  updateAllProgress();
+  updateDashboard();
+}
+
+// ============================================================
+// STATS
+// ============================================================
+function showStats() {
+  const el = document.getElementById('stats-content');
+  let html = '';
+  let completedTasks = [];
+  let totalMs = 0;
+  let fastest = null, slowest = null;
+
+  TRACKED_IDS.forEach(id => {
+    const p = progress[id];
+    if (p && p.state === 'done' && p.startedAt && p.doneAt) {
+      const ms = new Date(p.doneAt) - new Date(p.startedAt);
+      const card = document.getElementById('res-' + id);
+      const title = card ? (card.querySelector('.res-title') || {}).textContent || id : id;
+      completedTasks.push({id, title, ms, startedAt: p.startedAt, doneAt: p.doneAt});
+      totalMs += ms;
+      if (!fastest || ms < fastest.ms) fastest = {title, ms};
+      if (!slowest || ms > slowest.ms) slowest = {title, ms};
+    }
+  });
+
+  const done = completedTasks.length;
+  const ip = TRACKED_IDS.filter(id => (progress[id] || {}).state === 'in-progress').length;
+  const ns = TOTAL_TRACKED - done - ip;
+
+  html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;text-align:center">';
+  html += '<div style="background:var(--surface2);border-radius:12px;padding:12px"><div style="font-size:1.4rem;font-weight:900;color:var(--success)">' + done + '</div><div style="font-size:.7rem;color:var(--muted)">Completed</div></div>';
+  html += '<div style="background:var(--surface2);border-radius:12px;padding:12px"><div style="font-size:1.4rem;font-weight:900;color:var(--accent2)">' + ip + '</div><div style="font-size:.7rem;color:var(--muted)">In Progress</div></div>';
+  html += '<div style="background:var(--surface2);border-radius:12px;padding:12px"><div style="font-size:1.4rem;font-weight:900;color:var(--faint)">' + ns + '</div><div style="font-size:.7rem;color:var(--muted)">Remaining</div></div>';
+  html += '</div>';
+
+  if (done > 0) {
+    if (fastest) html += '<p>⚡ <strong>Fastest:</strong> ' + fastest.title.substring(0,50) + ' (' + fmtDur(fastest.ms) + ')</p>';
+    if (slowest && done > 1) html += '<p>🐢 <strong>Most thorough:</strong> ' + slowest.title.substring(0,50) + ' (' + fmtDur(slowest.ms) + ')</p>';
+    html += '<p>⏱️ <strong>Average time:</strong> ' + fmtDur(totalMs / done) + ' per resource</p>';
+
+    html += '<div style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px"><strong style="font-size:.8rem">Completion Log:</strong></div>';
+    html += '<div style="margin-top:8px;max-height:250px;overflow-y:auto">';
+    completedTasks.sort((a,b) => new Date(a.doneAt) - new Date(b.doneAt));
+    completedTasks.forEach((t, i) => {
+      html += '<div style="padding:6px 0;border-bottom:1px solid var(--border);font-size:.78rem">';
+      html += '<span style="color:var(--accent);font-weight:800">#' + (i+1) + '</span> ';
+      html += t.title.substring(0,45);
+      html += '<br><span style="color:var(--faint);font-size:.7rem">' + new Date(t.doneAt).toLocaleDateString() + ' · ' + fmtDur(t.ms) + '</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+  } else {
+    html += '<p style="text-align:center;padding:20px;color:var(--faint)">No completed tasks yet. Start your first one! 🌱</p>';
+  }
+
+  el.innerHTML = html;
+  document.getElementById('stats-modal').style.display = 'flex';
+}
+
+function fmtDur(ms) {
+  const mins = Math.floor(ms / 60000);
+  const hrs = Math.floor(mins / 60);
+  const days = Math.floor(hrs / 24);
+  if (days > 0) return days + 'd ' + (hrs % 24) + 'h';
+  if (hrs > 0) return hrs + 'h ' + (mins % 60) + 'm';
+  return mins + 'm';
+}
+
+// ============================================================
+// INIT
+// ============================================================
+function initApp() {
+  loadProgress();
+  updateAllProgress();
+  updateDashboard();
+  updateCountdown();
+  autoCollapseDone();
+  showTab('learn');
+  // Scroll to current after short delay
+  setTimeout(scrollToCurrent, 500);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Theme
+  const savedTheme = localStorage.getItem(THEME_KEY);
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+    const btn = document.getElementById('theme-btn');
+    if (btn) btn.textContent = '\u2600\ufe0f';
+  }
+
+  // Auth check
+  if (localStorage.getItem(AUTH_KEY) === '1') {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    initApp();
+  }
+
+  // Live countdown (every second)
+  setInterval(updateCountdown, 1000);
+});
+</script>
+</body>
+</html>
